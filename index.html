@@ -100,6 +100,17 @@ ul.plain{margin:0;padding-left:20px}ul.plain li{margin:5px 0}
 .warn li::marker{color:var(--wink)}
 textarea{display:block;width:100%;min-height:180px;margin-top:8px;padding:10px;font:13px/1.45 "IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;color:var(--ink);background:var(--field);border:2px solid var(--line);border-radius:2px;white-space:pre;overflow:auto}
 input[type=file]{width:100%;min-height:44px;padding:8px 0;font:500 16px Barlow,system-ui,sans-serif;color:var(--ink)}
+.menu{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:12px}
+.menu a{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 14px;background:var(--panel);border:2px solid var(--line);border-radius:2px;color:var(--ink);text-decoration:none}
+.menu a:hover{border-color:var(--ink)}
+.menu .ic{width:28px;height:28px}
+.menu b{display:block;font:700 22px/1.1 "Big Shoulders Display",Impact,"Arial Narrow",sans-serif}
+.menu span{display:block;color:var(--mut);font-size:14px}
+.menu .chev{margin-left:auto;font:700 24px/1 Barlow,sans-serif;color:var(--mut)}
+a.back{display:inline-flex;align-items:center;min-height:44px;margin-bottom:4px;font-weight:700;text-decoration:none}
+.rec h3{font:700 22px/1.15 "Big Shoulders Display",Impact,"Arial Narrow",sans-serif;margin:0 0 4px}
+.rec p{margin:0;color:var(--mut)}
+.cat{font:700 14px/1 "IBM Plex Mono",ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin:20px 0 8px}
 .foot{color:var(--mut);font-size:14px;margin-top:20px}
 </style>
 </head>
@@ -115,12 +126,14 @@ input[type=file]{width:100%;min-height:44px;padding:8px 0;font:500 16px Barlow,s
 <symbol id="i-joint" viewBox="0 0 24 24"><path d="M3 6h18v4H3z"/><path d="M10 10v11h4V10"/></symbol>
 <symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3L2 21h20z"/><path d="M12 10v5"/><path d="M12 18v.5"/></symbol>
 <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h3l2.5 11h11L21 7H7"/><circle cx="10" cy="19.5" r="1.5"/><circle cx="18" cy="19.5" r="1.5"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 17l-5.6 3 1.3-6.2L3 9.5l6.3-.7z"/></symbol>
 <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M15 4a5 5 0 0 0-4.6 6.9L3 18.3 5.7 21l7.4-7.4A5 5 0 0 0 20 9l-3 3-3-1-1-3z"/></symbol>
 </defs></svg>
 <main>
 <h1>Weld settings</h1>
 <nav class="tabs" aria-label="Pages">
-<a href="#welds"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg>Settings</a><a href="#gear"><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg>My equipment</a><a href="#supplies"><svg class="ic" aria-hidden="true"><use href="#i-spool"/></svg>Consumables</a><a href="#export"><svg class="ic" aria-hidden="true"><use href="#i-export"/></svg>Export</a>
+<a href="#welds"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg>Settings</a><a href="#gear"><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg>My equipment</a><a href="#supplies"><svg class="ic" aria-hidden="true"><use href="#i-spool"/></svg>Consumables</a><a href="#more"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg>More</a>
 </nav>
 
 <section id="v-welds" hidden>
@@ -203,7 +216,23 @@ input[type=file]{width:100%;min-height:44px;padding:8px 0;font:500 16px Barlow,s
 <p class="disc" id="disc" hidden></p>
 </section>
 
+<section id="v-more" hidden>
+<p class="lead">Extra tools and links.</p>
+<ul class="menu">
+<li><a href="#recs"><svg class="ic" aria-hidden="true"><use href="#i-star"/></svg><div><b>Recommendations</b><span>Gear and supplies worth buying</span></div><span class="chev" aria-hidden="true">›</span></a></li>
+<li><a href="#export"><svg class="ic" aria-hidden="true"><use href="#i-export"/></svg><div><b>Export and import</b><span>Back up or restore equipment and consumables</span></div><span class="chev" aria-hidden="true">›</span></a></li>
+</ul>
+</section>
+
+<section id="v-recs" hidden>
+<a class="back" href="#more">‹ More</a>
+<p class="lead">Gear and supplies I'd point you to. Each one opens its Amazon page so you can check the current price.</p>
+<div id="recs-list"></div>
+<p class="disc" id="recs-disc" hidden></p>
+</section>
+
 <section id="v-export" hidden>
+<a class="back" href="#more">‹ More</a>
 <p class="lead">Take your equipment and consumables out of the app as a spreadsheet file, or save everything in one backup. Example items are left out. You can restore a backup or CSV at the bottom of this page.</p>
 <div class="card">
 <h2><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg>Equipment</h2>
@@ -873,13 +902,36 @@ $('#im-cancel').onclick=resetImport;
  renderExport();
 })();
 
+/* ---------- recommendations ---------- */
+/* Add items here: {name:"Item name", note:"Why it's worth it", q:"Amazon search words", cat:"Category"} */
+const RECS=[
+ {cat:"Welders",name:"YESWELDER 205Amp Stick Welder Digital Inverter IGBT ARC Welding Machine",note:"Digital inverter IGBT stick (ARC) welder, portable.",asin:"B086SNKTTK"},
+ {cat:"Plasma cutting",name:"PlasmaDyn FineCut Plasma cutter consumables kit",note:"Fine-cut consumables kit for plasma cutters (the listing mentions X45 torches, so check your torch fits).",asin:"B0BWVQCR4G"},
+ {cat:"Plasma cutting",name:"YESWELDER CUT-65DS PLUS Plasma Cutter",note:"Multifunctional plasma cutter.",asin:"B0G119GKTK"},
+ {cat:"Safety",name:"YESWELDER Auto-Darkening True Color Helmet",note:"Solar-powered auto-darkening welding helmet.",asin:"B07RPXNVZZ"},
+ {cat:"Safety",name:"Lincoln Electric Camo Welding Sleeves",note:"Camo welding sleeves to protect your arms.",asin:"B0C15CPCZM"},
+ {cat:"TIG welding",name:"CK17 Air Cooled TIG Torch Kit, Flex Valve, 150A, 12.5', 1-Pc, Super-Flex, CK17V-12-RSF FX",note:"Air-cooled 150A TIG torch kit with a 12.5 ft one-piece Super-Flex cable and gas valve.",asin:"B00JV8OWF6"}
+];
+const recUrl=r=>r.asin?"https://www.amazon.com/dp/"+encodeURIComponent(r.asin)+(AMAZON_TAG?"?tag="+encodeURIComponent(AMAZON_TAG):""):amz(r.q||r.name);
+function renderRecs(){
+ const el=$("#recs-list");
+ if(!RECS.length){el.innerHTML='<div class="note">No recommendations yet.</div>';$("#recs-disc").hidden=true;return}
+ let h="",last=null;
+ RECS.forEach(r=>{
+  if(r.cat&&r.cat!==last){h+=`<div class="cat">${esc(r.cat)}</div>`;last=r.cat}
+  h+=`<div class="card rec"><h3>${esc(r.name)}</h3>${r.note?`<p>${esc(r.note)}</p>`:""}<div class="links"><a class="buy" href="${esc(recUrl(r))}" target="_blank" rel="sponsored noopener" aria-label="${esc("Check price of "+r.name+" on Amazon")}">${ic("cart")}Check price on Amazon</a></div></div>`;
+ });
+ el.innerHTML=h;
+ const d=$("#recs-disc");d.textContent=DISC;d.hidden=!DISC;
+}
+
 /* ---------- pages on the URL hash ---------- */
-const VIEWS=["welds","gear","supplies","export"];let routed=false;
+const VIEWS=["welds","gear","supplies","more","recs","export"],TABOF={recs:"more",export:"more"};let routed=false;
 function route(){
  const h=location.hash.slice(1),v=VIEWS.indexOf(h)>=0?h:"welds";
  VIEWS.forEach(x=>{$("#v-"+x).hidden=x!==v});
- document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.getAttribute("href")==="#"+v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
- if(v==="export")renderExport();if(routed)window.scrollTo(0,0);routed=true;
+ document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.getAttribute("href")==="#"+(TABOF[v]||v))a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+ if(v==="export")renderExport();if(v==="recs")renderRecs();if(routed)window.scrollTo(0,0);routed=true;
 }
 addEventListener("hashchange",route);
 
