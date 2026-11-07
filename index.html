@@ -911,7 +911,14 @@ const RECS=[
  {cat:"Plasma cutting",name:"YESWELDER CUT-65DS PLUS Plasma Cutter",note:"Multifunctional plasma cutter.",asin:"B0G119GKTK"},
  {cat:"Safety",name:"YESWELDER Auto-Darkening True Color Helmet",note:"Solar-powered auto-darkening welding helmet.",asin:"B07RPXNVZZ"},
  {cat:"Safety",name:"Lincoln Electric Camo Welding Sleeves",note:"Camo welding sleeves to protect your arms.",asin:"B0C15CPCZM"},
- {cat:"TIG welding",name:"CK17 Air Cooled TIG Torch Kit, Flex Valve, 150A, 12.5', 1-Pc, Super-Flex, CK17V-12-RSF FX",note:"Air-cooled 150A TIG torch kit with a 12.5 ft one-piece Super-Flex cable and gas valve.",asin:"B00JV8OWF6"}
+ {cat:"Safety",name:"Tillman 1338 Top Grain Goatskin TIG Welding Gloves with 4\" Cuffs",note:"Top grain goatskin TIG welding gloves with 4 in cuffs.",asin:"B008BJDTGE"},
+ {cat:"TIG welding",name:"CK17 Air Cooled TIG Torch Kit, Flex Valve, 150A, 12.5', 1-Pc, Super-Flex, CK17V-12-RSF FX",note:"Air-cooled 150A TIG torch kit with a 12.5 ft one-piece Super-Flex cable and gas valve.",asin:"B00JV8OWF6"},
+ {cat:"Consumables",name:"YESWELDER E6011 1/8\" 5LB Welding Rods Stick Electrodes",note:"E6011 carbon steel stick electrodes, 1/8 in, 5 lb.",asin:"B0C9L44P8F"},
+ {cat:"Consumables",name:"YESWELDER E6013 1/8\" 5LB Welding Rods Stick",note:"E6013 carbon steel stick electrodes, 1/8 in, 5 lb.",asin:"B0C9LBH9VJ"},
+ {cat:"Consumables",name:"YESWELDER E7018 1/8\" 5LB Welding Rods Stick",note:"E7018 low-hydrogen stick electrodes, 1/8 in, 5 lb.",asin:"B0HF4BZ3L7"},
+ {cat:"Consumables",name:"YESWELDER MIG Welding Wire, ER70S-6 Solid Carbon",note:"ER70S-6 solid carbon steel MIG wire.",asin:"B07VY9FK3R"},
+ {cat:"Consumables",name:"YESWELDER Aluminum TIG Welding Rod ER4043 3/32\"x16\" 5LB",note:"ER4043 aluminum TIG filler rod, 3/32 in x 16 in, 5 lb.",asin:"B09YTSXWRL"},
+ {cat:"Consumables",name:"RIVERWELD TIG Gas Lens Ceramic Cups 53N61 7# 7/16\" 11.0mm 10pcs",note:"Gas lens ceramic TIG cups, 53N61, size 7 (7/16 in, 11.0 mm), pack of 10.",asin:"B01A6GAX5Y"}
 ];
 const recUrl=r=>r.asin?"https://www.amazon.com/dp/"+encodeURIComponent(r.asin)+(AMAZON_TAG?"?tag="+encodeURIComponent(AMAZON_TAG):""):amz(r.q||r.name);
 function renderRecs(){
