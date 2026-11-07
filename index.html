@@ -1,30 +1,45 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#17191b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Weld Settings">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Weld Settings</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-/* Layout: one narrow column, three pages on hash tabs. Steel greys, one blue accent, semantic colors only for stock and warnings. */
-:root{--bg:#dde1e4;--panel:#eceff1;--field:#f8fafb;--ink:#1b2127;--mut:#56616b;--line:#c0c8ce;--acc:#1f5fbf;--on:#fff;--wbg:#f5e3cb;--wink:#7a3b00;--okbg:#d3ead8;--okink:#1b5a2b;--cbg:#f5d3cf;--cink:#8a1f17}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191d;--panel:#1e2429;--field:#161b1f;--ink:#e6e9ec;--mut:#98a3ad;--line:#333c44;--acc:#7db4ff;--on:#0d1620;--wbg:#3a2a18;--wink:#f2c48d;--okbg:#1f3a27;--okink:#9fd8ad;--cbg:#44211f;--cink:#f4aaa3;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#15191d;--panel:#1e2429;--field:#161b1f;--ink:#e6e9ec;--mut:#98a3ad;--line:#333c44;--acc:#7db4ff;--on:#0d1620;--wbg:#3a2a18;--wink:#f2c48d;--okbg:#1f3a27;--okink:#9fd8ad;--cbg:#44211f;--cink:#f4aaa3;color-scheme:dark}
+/* Layout: one narrow column of flat steel panels. The result reads like a machine data plate: riveted, dark, yellow digits. Safety yellow is the only accent, and hazard stripes mark warnings only. */
+:root{--bg:#c8cbc9;--panel:#dcdfdc;--field:#eceeeb;--ink:#14171a;--mut:#464d52;--line:#8c9490;--acc:#f2b200;--on:#14171a;--pri:#14171a;--pri-ink:#ffc20e;--plate:#17191b;--plate-ink:#f2efe6;--plate-mut:#aeb3ae;--plate-acc:#ffc20e;--wbg:#f1e3a8;--wink:#3d2f00;--okbg:#c3dcc8;--okink:#12482a;--cbg:#efc4bf;--cink:#7a1810}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101213;--panel:#1a1d1f;--field:#121416;--ink:#e8e6de;--mut:#9ea5a9;--line:#444b50;--acc:#ffc20e;--on:#14171a;--pri:#ffc20e;--pri-ink:#14171a;--plate:#08090a;--plate-ink:#f2efe6;--plate-mut:#9aa09b;--plate-acc:#ffc20e;--wbg:#3a3010;--wink:#f3d36b;--okbg:#1c3a26;--okink:#9fd8ad;--cbg:#43211f;--cink:#f4aaa3;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101213;--panel:#1a1d1f;--field:#121416;--ink:#e8e6de;--mut:#9ea5a9;--line:#444b50;--acc:#ffc20e;--on:#14171a;--pri:#ffc20e;--pri-ink:#14171a;--plate:#08090a;--plate-ink:#f2efe6;--plate-mut:#9aa09b;--plate-acc:#ffc20e;--wbg:#3a3010;--wink:#f3d36b;--okbg:#1c3a26;--okink:#9fd8ad;--cbg:#43211f;--cink:#f4aaa3;color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Barlow,system-ui,sans-serif}
-main{max-width:720px;margin:0 auto;padding:20px 16px calc(84px + env(safe-area-inset-bottom,0px))}
-h1{font:700 34px/1.05 "Barlow Condensed",Impact,sans-serif;margin:8px 0 14px;letter-spacing:.01em}
-h2{font:700 22px/1.1 "Barlow Condensed",Impact,sans-serif;margin:0 0 10px;text-wrap:balance}
-a{color:var(--acc)}
+main{max-width:720px;margin:0 auto;padding:20px 16px calc(96px + env(safe-area-inset-bottom,0px))}
+h1{font:800 46px/1 "Big Shoulders Display",Impact,"Arial Narrow",sans-serif;margin:8px 0 16px;letter-spacing:.01em}
+h2{display:flex;align-items:center;gap:10px;font:700 25px/1.1 "Big Shoulders Display",Impact,"Arial Narrow",sans-serif;margin:0 0 12px;text-wrap:balance}
+a{color:var(--ink)}
+.ic{width:24px;height:24px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter}
 .lead{color:var(--mut);margin:0 0 20px;max-width:52ch}
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;background:var(--panel);border-top:1px solid var(--line);padding:0 env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
-nav.tabs a{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px;padding:8px 6px;border-top:4px solid transparent;font:700 19px/1.2 "Barlow Condensed",Impact,sans-serif;color:var(--mut);text-decoration:none;text-align:center}
-nav.tabs a[aria-current="page"]{color:var(--ink);border-top-color:var(--acc)}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;background:var(--plate);border-top:2px solid #000;padding:0 env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+nav.tabs a{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:64px;padding:8px 2px;color:var(--plate-mut);font:600 14px/1.15 Barlow,system-ui,sans-serif;text-decoration:none;text-align:center}
+nav.tabs a[aria-current="page"]{color:var(--plate-acc);box-shadow:inset 0 4px 0 var(--plate-acc)}
 fieldset{border:0;padding:0;margin:0 0 16px;min-width:0}
 legend{font-weight:600;margin-bottom:6px;padding:0}
 label{font-weight:600}
 .hint{color:var(--mut);font-size:14px;margin:6px 0 0}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chips button{font:500 15px Barlow,system-ui,sans-serif;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:9px 12px;min-height:44px;cursor:pointer}
-.chips button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--on);font-weight:600}
+.chips button{font:600 15px Barlow,system-ui,sans-serif;color:var(--ink);background:var(--panel);border:2px solid var(--line);border-radius:2px;padding:8px 12px;min-height:44px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--acc);border-color:var(--ink);color:var(--on);font-weight:700}
 .chips button:disabled{opacity:.4;cursor:not-allowed}
-input[type=text],input[type=number],select{font:500 16px Barlow,system-ui,sans-serif;width:100%;min-width:0;min-height:44px;padding:8px 10px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px}
+input[type=text],input[type=number],select{font:500 16px Barlow,system-ui,sans-serif;width:100%;min-width:0;min-height:44px;padding:8px 10px;color:var(--ink);background:var(--field);border:2px solid var(--line);border-radius:2px}
 input::placeholder{color:var(--mut);opacity:.85}
 .field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;min-width:0}
 .check{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:500;margin-bottom:4px}
@@ -32,17 +47,20 @@ input::placeholder{color:var(--mut);opacity:.85}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 @media(max-width:520px){.two{grid-template-columns:1fr}}
-button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-.btn{font:600 16px Barlow,system-ui,sans-serif;min-height:44px;padding:0 16px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;cursor:pointer}
-.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--on)}
-.btn.danger{color:var(--cink)}
-.step{width:44px;height:44px;font:600 22px Barlow,system-ui,sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;cursor:pointer}
-a.buy{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--acc);border-radius:6px;color:var(--acc);font-weight:600;text-decoration:none}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+nav.tabs a:focus-visible{outline-color:var(--plate-acc);outline-offset:-4px}
+.btn{font:600 16px Barlow,system-ui,sans-serif;min-height:44px;padding:0 16px;color:var(--ink);background:var(--panel);border:2px solid var(--ink);border-radius:2px;cursor:pointer}
+.btn.pri{background:var(--pri);border-color:var(--pri);color:var(--pri-ink)}
+.btn.danger{color:var(--cink);border-color:var(--cink)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.step{width:44px;height:44px;font:700 22px Barlow,system-ui,sans-serif;color:var(--ink);background:var(--field);border:2px solid var(--ink);border-radius:2px;cursor:pointer}
+a.buy{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border:2px solid var(--ink);border-radius:2px;background:var(--field);color:var(--ink);font-weight:700;text-decoration:none}
+a.buy .ic{width:20px;height:20px}
 .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .disc{color:var(--mut);font-size:14px;margin:10px 0 0}
 .err{color:var(--cink);margin:8px 0 0}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
-.list{list-style:none;margin:0 0 16px;padding:0;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.card{background:var(--panel);border:2px solid var(--line);border-radius:2px;padding:14px 16px;margin-bottom:12px}
+.list{list-style:none;margin:0 0 16px;padding:0;background:var(--panel);border:2px solid var(--line);border-radius:2px}
 .list>li{padding:12px 14px;border-top:1px solid var(--line)}
 .list>li:first-child{border-top:0}
 .list>li.empty{color:var(--mut)}
@@ -50,40 +68,59 @@ a.buy{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;bord
 .row.sp{margin-top:8px}
 .meta{display:block;color:var(--mut);font-size:14px}
 .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.inuse{font-size:13px;font-weight:600;color:var(--okink);background:var(--okbg);border-radius:999px;padding:2px 9px;margin-left:6px}
+.inuse{font-size:12px;font-weight:700;color:var(--okink);background:var(--okbg);border-radius:2px;padding:2px 8px;margin-left:8px}
 .qty{display:flex;align-items:center;gap:4px}
 .unit{color:var(--mut);margin-left:6px}
-output{display:inline-block;min-width:44px;text-align:center;font:700 28px/1 "Barlow Condensed",Impact,sans-serif;font-variant-numeric:tabular-nums}
-.pill{font:600 13px/1 Barlow,system-ui,sans-serif;padding:6px 10px;border-radius:999px}
+output{display:inline-block;min-width:44px;text-align:center;font:800 32px/1 "Big Shoulders Display",Impact,"Arial Narrow",sans-serif;font-variant-numeric:tabular-nums}
+.pill{font:600 12px/1 "IBM Plex Mono",ui-monospace,Menlo,monospace;padding:6px 8px;border-radius:2px}
 .s-ok{background:var(--okbg);color:var(--okink)}
 .s-low{background:var(--wbg);color:var(--wink)}
 .s-out{background:var(--cbg);color:var(--cink)}
-.tag{font-size:13px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-left:6px}
-.note{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px;color:var(--mut)}
+.tag{font-size:12px;color:var(--mut);border:1px solid var(--line);border-radius:2px;padding:1px 6px;margin-left:8px}
+.note{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:2px dashed var(--line);border-radius:2px;padding:10px 12px;margin-bottom:12px;color:var(--mut)}
 details{margin-top:4px}
-summary{cursor:pointer;color:var(--acc);font-weight:600;min-height:44px;display:flex;align-items:center}
+summary{cursor:pointer;color:var(--ink);font-weight:700;min-height:44px;display:flex;align-items:center}
 .edit{padding-top:4px}
 #res{margin-top:8px}
-.hero{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
-.hero .what{color:var(--mut);margin:0}
-.amps{font:700 64px/1 "Barlow Condensed",Impact,sans-serif;margin:4px 0 12px}
-.amps small{font-size:28px;font-weight:500;color:var(--mut);margin-left:6px}
-.track{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,#e8cf85,#c88a3a,#8a4a2e,#6a4fa0,#2f5fb5)}
-.mark{position:absolute;top:-4px;bottom:-4px;border:2px solid var(--ink);border-radius:4px;background:rgba(255,255,255,.25)}
-.scale{display:flex;justify-content:space-between;color:var(--mut);font-size:13px;margin-top:4px}
-dl{margin:0}dl>div{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:7px 0;border-top:1px solid var(--line)}
+.hero{position:relative;color:var(--plate-ink);background-color:var(--plate);background-image:radial-gradient(circle,#9aa0a6 0 2.5px,#3b4044 3px 5px,transparent 5.5px),radial-gradient(circle,#9aa0a6 0 2.5px,#3b4044 3px 5px,transparent 5.5px),radial-gradient(circle,#9aa0a6 0 2.5px,#3b4044 3px 5px,transparent 5.5px),radial-gradient(circle,#9aa0a6 0 2.5px,#3b4044 3px 5px,transparent 5.5px);background-position:left 7px top 7px,right 7px top 7px,left 7px bottom 7px,right 7px bottom 7px;background-size:12px 12px;background-repeat:no-repeat;border:3px solid #000;border-radius:2px;box-shadow:inset 0 0 0 1px #3a3f43,0 0 0 1px var(--line);padding:22px 28px 20px;margin-bottom:12px}
+.hero .what{color:var(--plate-mut);margin:0;font-size:15px}
+.amps{white-space:nowrap;font:800 clamp(48px,14vw,80px)/1 "Big Shoulders Display",Impact,"Arial Narrow",sans-serif;color:var(--plate-acc);margin:4px 0 16px;font-variant-numeric:tabular-nums}
+.amps small{font:600 20px "Big Shoulders Display",Impact,"Arial Narrow",sans-serif;color:var(--plate-ink);margin-left:6px}
+.track{position:relative;height:10px;background:linear-gradient(90deg,#e8cf85,#c88a3a,#8a4a2e,#6a4fa0,#2f5fb5)}
+.mark{position:absolute;top:-5px;bottom:-5px;border:2px solid var(--plate-ink);background:rgba(255,255,255,.2)}
+.scale{display:flex;justify-content:space-between;color:var(--plate-mut);font:12px "IBM Plex Mono",ui-monospace,Menlo,monospace;margin-top:8px}
+dl{margin:0}dl>div{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
 dl>div:first-child{border-top:0}
-dt{color:var(--mut)}dd{margin:0;font-weight:500;min-width:0}
+dt{color:var(--mut);font-weight:500}dd{margin:0;font-weight:600;min-width:0}
+dl.mono dd{font:500 14.5px/1.5 "IBM Plex Mono",ui-monospace,Menlo,monospace}
 @media(max-width:520px){dl>div{grid-template-columns:1fr;gap:0}}
 ul.plain{margin:0;padding-left:20px}ul.plain li{margin:5px 0}
-.warn{background:var(--wbg);color:var(--wink);border-color:transparent}
+.warn{position:relative;background:var(--wbg);color:var(--wink);border:2px solid var(--wink);padding-top:22px}
+.warn::before{content:"";position:absolute;left:-2px;right:-2px;top:-2px;height:9px;background:repeating-linear-gradient(135deg,#14171a 0 10px,#ffc20e 10px 20px)}
 .warn li::marker{color:var(--wink)}
+textarea{display:block;width:100%;min-height:180px;margin-top:8px;padding:10px;font:13px/1.45 "IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;color:var(--ink);background:var(--field);border:2px solid var(--line);border-radius:2px;white-space:pre;overflow:auto}
+input[type=file]{width:100%;min-height:44px;padding:8px 0;font:500 16px Barlow,system-ui,sans-serif;color:var(--ink)}
 .foot{color:var(--mut);font-size:14px;margin-top:20px}
 </style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-gauge" viewBox="0 0 24 24"><path d="M3 17a9 9 0 0 1 18 0"/><path d="M12 17l5-6"/><path d="M3 21h18"/><path d="M5.6 11.6l1.5 1M12 7.5V9M18.4 11.6l-1.5 1"/><circle cx="12" cy="17" r="1.5"/></symbol>
+<symbol id="i-machine" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13"/><path d="M8 7V4h8v3"/><circle cx="9" cy="13.5" r="2.5"/><circle cx="16" cy="12" r="1"/><circle cx="16" cy="16" r="1"/></symbol>
+<symbol id="i-spool" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+<symbol id="i-export" viewBox="0 0 24 24"><path d="M12 3v11M7.5 9.5L12 14l4.5-4.5"/><path d="M4 15v5h16v-5"/></symbol>
+<symbol id="i-import" viewBox="0 0 24 24"><path d="M12 14V3M7.5 7.5L12 3l4.5 4.5"/><path d="M4 15v5h16v-5"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5"/><path d="M6 8h12v4a6 6 0 0 1-12 0z"/><path d="M12 18v3"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 12.5l9 5 9-5"/><path d="M3 17l9 5 9-5"/></symbol>
+<symbol id="i-joint" viewBox="0 0 24 24"><path d="M3 6h18v4H3z"/><path d="M10 10v11h4V10"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3L2 21h20z"/><path d="M12 10v5"/><path d="M12 18v.5"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h3l2.5 11h11L21 7H7"/><circle cx="10" cy="19.5" r="1.5"/><circle cx="18" cy="19.5" r="1.5"/></symbol>
+<symbol id="i-wrench" viewBox="0 0 24 24"><path d="M15 4a5 5 0 0 0-4.6 6.9L3 18.3 5.7 21l7.4-7.4A5 5 0 0 0 20 9l-3 3-3-1-1-3z"/></symbol>
+</defs></svg>
 <main>
 <h1>Weld settings</h1>
 <nav class="tabs" aria-label="Pages">
-<a href="#welds">Settings</a><a href="#gear">My equipment</a><a href="#supplies">Consumables</a>
+<a href="#welds"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg>Settings</a><a href="#gear"><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg>My equipment</a><a href="#supplies"><svg class="ic" aria-hidden="true"><use href="#i-spool"/></svg>Consumables</a><a href="#export"><svg class="ic" aria-hidden="true"><use href="#i-export"/></svg>Export</a>
 </nav>
 
 <section id="v-welds" hidden>
@@ -103,7 +140,7 @@ ul.plain{margin:0;padding-left:20px}ul.plain li{margin:5px 0}
 
 <section id="v-gear" hidden>
 <p class="lead">Enter the machines and gear you own. Your machines appear on the Settings page and set its limits, such as maximum amps, wire size and lead setup.</p>
-<h2>Your machines</h2>
+<h2><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg>Your machines</h2>
 <ul class="list" id="mList"></ul>
 <div class="card" id="mFormCard">
 <h2 id="mFormTitle">Add a machine</h2>
@@ -130,7 +167,7 @@ ul.plain{margin:0;padding-left:20px}ul.plain li{margin:5px 0}
 <p class="hint" id="f-msg" aria-live="polite"></p>
 </form>
 </div>
-<h2>Other gear</h2>
+<h2><svg class="ic" aria-hidden="true"><use href="#i-wrench"/></svg>Other gear</h2>
 <ul class="list" id="gList"></ul>
 <form class="card" id="gForm" novalidate>
 <div class="two">
@@ -166,6 +203,45 @@ ul.plain{margin:0;padding-left:20px}ul.plain li{margin:5px 0}
 <p class="disc" id="disc" hidden></p>
 </section>
 
+<section id="v-export" hidden>
+<p class="lead">Take your equipment and consumables out of the app as a spreadsheet file, or save everything in one backup. Example items are left out. You can restore a backup or CSV at the bottom of this page.</p>
+<div class="card">
+<h2><svg class="ic" aria-hidden="true"><use href="#i-machine"/></svg>Equipment</h2>
+<p class="hint" id="x-eqn"></p>
+<div class="acts" data-x="equipment"><button type="button" class="btn pri" data-act="dl">Download CSV</button><button type="button" class="btn" data-act="copy">Copy</button><button type="button" class="btn" data-act="view">Preview</button></div>
+</div>
+<div class="card">
+<h2><svg class="ic" aria-hidden="true"><use href="#i-spool"/></svg>Consumables</h2>
+<p class="hint" id="x-cn"></p>
+<label class="check"><input id="x-need" type="checkbox"> Only items at or below the reorder level</label>
+<div class="acts" data-x="supplies"><button type="button" class="btn pri" data-act="dl">Download CSV</button><button type="button" class="btn" data-act="copy">Copy</button><button type="button" class="btn" data-act="view">Preview</button></div>
+</div>
+<div class="card">
+<h2><svg class="ic" aria-hidden="true"><use href="#i-export"/></svg>Full backup</h2>
+<p class="hint">One JSON file with your machines, gear and consumables. Keep it somewhere safe in case you clear your browser data or switch devices.</p>
+<div class="acts" data-x="backup"><button type="button" class="btn pri" data-act="dl">Download backup</button><button type="button" class="btn" data-act="copy">Copy</button><button type="button" class="btn" data-act="view">Preview</button></div>
+</div>
+<p class="hint" id="x-msg" aria-live="polite"></p>
+<div class="card" id="x-out" hidden>
+<h2 id="x-title">Preview</h2>
+<label class="hint" for="x-text">If Copy doesn’t work, select all of this text and copy it.</label>
+<textarea id="x-text" readonly rows="10"></textarea>
+</div>
+<div class="card">
+<h2><svg class="ic" aria-hidden="true"><use href="#i-import"/></svg>Restore from backup</h2>
+<p class="hint">Choose a backup (.json) or a CSV you downloaded from this page. To add gear in bulk, add rows to the CSV using the same columns. You see what’s in it before anything changes.</p>
+<div class="field"><label for="im-file">Backup or CSV file</label><input id="im-file" type="file" accept=".json,.csv,application/json,text/csv"></div>
+<p class="err" id="im-err" role="alert"></p>
+<div id="im-box" hidden>
+<p id="im-sum"></p>
+<div id="im-issues"></div>
+<div class="acts"><button type="button" class="btn pri" id="im-add">Add to my data</button><button type="button" class="btn danger" id="im-rep" data-again="Tap again to replace">Replace my data</button><button type="button" class="btn" id="im-cancel">Cancel</button></div>
+<p class="hint" id="im-help"></p>
+</div>
+<p class="hint" id="im-msg" aria-live="polite"></p>
+</div>
+</section>
+
 <p class="foot">Settings are starting points drawn from common manufacturer charts and AWS filler classes. Run a test coupon on scrap of the same thickness and adjust. For structural, pressure or safety-critical work, follow the written welding procedure and use a qualified welder.</p>
 <p class="foot" id="sync">Saved in this browser.</p>
 </main>
@@ -173,11 +249,12 @@ ul.plain{margin:0;padding-left:20px}ul.plain li{margin:5px 0}
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const uid=()=>"i"+Math.random().toString(36).slice(2,9);
+const ic=n=>'<svg class="ic" aria-hidden="true"><use href="#i-'+n+'"/></svg>';
 
 /* Amazon Associates tracking ID goes here, for example "yourname-20". Left empty, links still work but earn nothing. */
-const AMAZON_TAG="lurepicker-20";
+const AMAZON_TAG="weldsettings-20";
 const amz=q=>"https://www.amazon.com/s?k="+encodeURIComponent(q).replace(/%20/g,"+")+(AMAZON_TAG?"&tag="+encodeURIComponent(AMAZON_TAG):"");
-const buyLink=(q,label,aria)=>`<a class="buy" href="${esc(amz(q))}" target="_blank" rel="sponsored noopener"${aria?` aria-label="${esc(aria)}"`:""}>${esc(label)}</a>`;
+const buyLink=(q,label,aria)=>`<a class="buy" href="${esc(amz(q))}" target="_blank" rel="sponsored noopener"${aria?` aria-label="${esc(aria)}"`:""}>${ic("cart")}${esc(label)}</a>`;
 const DISC=AMAZON_TAG?"Amazon links are affiliate links. As an Amazon Associate I earn from qualifying purchases.":"";
 
 /* ---------- storage: the viewer's account when available, this browser otherwise ---------- */
@@ -329,20 +406,20 @@ function calc(){
  if(f==="cm")warn.push("For roll cages, aircraft or other safety-critical frames, follow the governing spec and let the part cool slowly. Don’t quench.");
  return{lo,hi,set,con,warn,tech,m,p,lead:leads(p,f,MC),shop:buy.map(b=>buyLink(b[1],b[0]+" on Amazon")).join("")};
 }
-const row=a=>"<dl>"+a.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")+"</dl>";
+const row=(a,c)=>"<dl"+(c?' class="'+c+'"':"")+">"+a.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")+"</dl>";
 const lis=a=>'<ul class="plain">'+a.map(x=>`<li>${x}</li>`).join("")+"</ul>";
 function out(){
  syncControls();
  const r=calc(),m=MAT[S.mat],th=TH.find(x=>x[0]===S.thick)[1];
- if(r.bad){$("#res").innerHTML=`<div class="card warn"><h2>Not a good match</h2><p style="margin:0">${esc(r.bad)}</p></div>`;return}
+ if(r.bad){$("#res").innerHTML=`<div class="card warn"><h2>${ic("warn")}Not a good match</h2><p style="margin:0">${esc(r.bad)}</p></div>`;return}
  const hd=`<div class="hero"><p class="what">${PN[S.proc]} on ${m.n}, ${th}</p><div class="amps">${r.lo}–${r.hi}<small>amps</small></div><div class="track"><div class="mark" style="left:${r.lo/3}%;width:${(r.hi-r.lo)/3}%"></div></div><div class="scale"><span>0</span><span>150</span><span>300 A</span></div></div>`;
  $("#res").innerHTML=hd+
- `<div class="card"><h2>Machine settings</h2>${row(r.set)}</div>`+
- `<div class="card"><h2>Lead setup</h2>${row(r.lead)}</div>`+
- `<div class="card"><h2>Filler and consumables</h2>${row(r.con)}<div class="links">${r.shop}</div>${DISC?`<p class="disc">${esc(DISC)}</p>`:""}</div>`+
- `<div class="card"><h2>Base metal</h2>${row([["Grade",m.g],["Strength",m.s],["Weldability",m.w],["Preheat",m.pre],["Prep",m.prep]])}</div>`+
- `<div class="card"><h2>Joint and technique</h2>${lis(r.tech)}</div>`+
- (r.warn.length?`<div class="card warn"><h2>Watch for</h2>${lis(r.warn)}</div>`:"");
+ `<div class="card"><h2>${ic("gauge")}Machine settings</h2>${row(r.set,"mono")}</div>`+
+ `<div class="card"><h2>${ic("plug")}Lead setup</h2>${row(r.lead)}</div>`+
+ `<div class="card"><h2>${ic("spool")}Filler and consumables</h2>${row(r.con,"mono")}<div class="links">${r.shop}</div>${DISC?`<p class="disc">${esc(DISC)}</p>`:""}</div>`+
+ `<div class="card"><h2>${ic("layers")}Base metal</h2>${row([["Grade",m.g],["Strength",m.s],["Weldability",m.w],["Preheat",m.pre],["Prep",m.prep]])}</div>`+
+ `<div class="card"><h2>${ic("joint")}Joint and technique</h2>${lis(r.tech)}</div>`+
+ (r.warn.length?`<div class="card warn"><h2>${ic("warn")}Watch for</h2>${lis(r.warn)}</div>`:"");
 }
 function paint(id,key){[...$("#"+id).children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===S[key])))}
 function chips(id,opts,key){
@@ -443,7 +520,7 @@ function summary(m){
 }
 function armed(btn,run){
  if(btn._t){clearTimeout(btn._t);btn._t=0;run();return}
- const o=btn.textContent;btn.textContent="Tap again to remove";
+ const o=btn.textContent;btn.textContent=btn.dataset.again||"Tap again to remove";
  btn._t=setTimeout(()=>{btn._t=0;btn.textContent=o},3500);
 }
 function renderEquip(){
@@ -575,13 +652,234 @@ $("#addForm").addEventListener("submit",e=>{
 });
 if(DISC){$("#disc").textContent=DISC;$("#disc").hidden=false}
 
+/* ---------- export ---------- */
+const X={dl:null,canDl:false},BOM=String.fromCharCode(65279),CR=String.fromCharCode(13),LF=String.fromCharCode(10),AP=String.fromCharCode(39);
+const csvCell=v=>{let s=String(v==null?'':v);if(/^[=+@-]/.test(s))s=AP+s;return(s.indexOf('"')>=0||s.indexOf(',')>=0||s.indexOf(LF)>=0||s.indexOf(CR)>=0)?'"'+s.split('"').join('""')+'"':s};
+const toCsv=rows=>BOM+rows.map(r=>r.map(csvCell).join(',')).join(CR+LF)+CR+LF;
+const stamp=()=>{const d=new Date(),p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())};
+const pl=(n,w)=>n+' '+w+(n===1?'':'s');
+const TIGL={lift:'DC, lift start',hf:'DC, high-frequency start',acdc:'AC/DC, high-frequency start'},VOLTL={'120':'120 V','240':'240 V',both:'120 V and 240 V'};
+const exItems=need=>(INV.items||[]).filter(i=>!i.ex&&(!need||status(i)!=='ok')).sort(cmp);
+const inch=v=>v?v+'"':'';
+function eqCsv(){
+ const rows=[['Category','Type','Name','Processes','Max amps','Input power','Largest wire (in)','Largest rod on 120 V','Largest rod on 240 V','TIG output','Synergic MIG','Spool gun','Notes']];
+ EQ.machines.forEach(m=>rows.push(['Machine','',m.name,(m.procs||[]).map(p=>PN[p]||p).join('; '),m.maxA||'',VOLTL[m.volts]||'',m.wire||'',inch(m.rod120),inch(m.rod240),TIGL[m.tig]||'',m.syn?'Yes':'No',m.spool?'Yes':'No',m.note||'']));
+ EQ.gear.forEach(g=>rows.push(['Gear',g.kind,g.name,'','','','','','','','','','']));
+ return toCsv(rows);
+}
+function suCsv(need){
+ const rows=[['Item','Count','Unit','Reorder at','Status','Amazon search link']];
+ exItems(need).forEach(i=>rows.push([i.name,i.qty,i.unit,i.min,PILL[status(i)],amz(i.q||i.name)]));
+ return toCsv(rows);
+}
+function backupJson(){return JSON.stringify({app:'Weld Settings',version:1,exported:new Date().toISOString(),equipment:{machines:EQ.machines,gear:EQ.gear,selectedMachine:S.mach},consumables:{items:(INV.items||[]).filter(i=>!i.ex)}},null,2)}
+const XT={
+ equipment:{file:()=>'weld-equipment-'+stamp()+'.csv',text:eqCsv,title:'Equipment CSV',ok:()=>EQ.machines.length+EQ.gear.length>0},
+ supplies:{file:()=>'weld-consumables-'+stamp()+'.csv',text:()=>suCsv($('#x-need').checked),title:'Consumables CSV',ok:()=>exItems(false).length>0},
+ backup:{file:()=>'weld-backup-'+stamp()+'.json',text:backupJson,title:'Full backup',ok:()=>EQ.machines.length+EQ.gear.length+exItems(false).length>0}
+};
+function renderExport(){
+ const m=EQ.machines.length,g=EQ.gear.length,all=exItems(false),need=all.filter(i=>status(i)!=='ok').length;
+ $('#x-eqn').textContent=(m+g)?pl(m,'machine')+' and '+pl(g,'other gear item')+'.':'Nothing to export yet. Add a machine on the My equipment page.';
+ $('#x-cn').textContent=all.length?pl(all.length,'item')+', '+need+' at or below the reorder level.':'Nothing to export yet. Add items on the Consumables page. Example items are left out.';
+ document.querySelectorAll('#v-export [data-x]').forEach(box=>{
+  const on=XT[box.dataset.x].ok();
+  box.querySelectorAll('button').forEach(b=>{b.disabled=!on});
+  box.querySelector('[data-act="dl"]').hidden=!X.canDl;
+ });
+}
+function showExport(title,text){$('#x-out').hidden=false;$('#x-title').textContent=title;$('#x-text').value=text.replace(BOM,'')}
+$('#v-export').addEventListener('click',async e=>{
+ const b=e.target.closest('button[data-act]');if(!b||b.disabled)return;
+ const t=XT[b.closest('[data-x]').dataset.x],text=t.text(),act=b.dataset.act,msg=$('#x-msg');
+ showExport(t.title,text);
+ if(act==='view'){msg.textContent='Showing '+t.title+' below.';return}
+ if(act==='copy'){
+  try{await navigator.clipboard.writeText(text.replace(BOM,''));msg.textContent='Copied '+t.title+'.'}
+  catch(err){const ta=$('#x-text');ta.focus();ta.select();msg.textContent='Couldn’t copy automatically. The text is selected below. Copy it from there.'}
+  return;
+ }
+ const name=t.file();
+ if(X.dl){
+  try{const r=await X.dl.save({filename:name,data:text});msg.textContent=(r&&r.status==='saved'?'Saved ':'Sent ')+name+'.'}
+  catch(err){const c=err&&err.code;msg.textContent=c==='declined'?'Not saved.':c==='rate_limited'?'A save prompt is already open. Finish it, then try again.':'This view can’t save files. Use Copy instead.'}
+ }else{
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:name.slice(-5)==='.json'?'application/json':'text/csv'}));a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);msg.textContent='Downloaded '+name+'.'}
+  catch(err){msg.textContent='Couldn’t download. Use Copy instead.'}
+ }
+});
+/* import */
+const IM={d:null};
+const okId=s=>typeof s==='string'&&/^[A-Za-z0-9_-]{1,40}$/.test(s);
+const str=(v,n)=>typeof v==='string'?v.trim().slice(0,n):'';
+const cnt=v=>Math.max(0,Math.min(100000,Math.floor(+v)||0));
+const uniq=list=>{const seen=new Set();return list.map(x=>{if(seen.has(x.id))x.id=uid();seen.add(x.id);return x})};
+function cleanBackup(raw){
+ if(!raw||typeof raw!=='object'||raw.app!=='Weld Settings')return null;
+ const eq=raw.equipment&&typeof raw.equipment==='object'?raw.equipment:{},cs=raw.consumables&&typeof raw.consumables==='object'?raw.consumables:{};
+ const arr=v=>Array.isArray(v)?v.slice(0,300):[];
+ const machines=arr(eq.machines).map(m=>{
+  if(!m||typeof m!=='object')return null;
+  const name=str(m.name,80),procs=PROCS.map(p=>p[0]).filter(p=>Array.isArray(m.procs)&&m.procs.indexOf(p)>=0);
+  if(!name||!procs.length)return null;
+  return{id:okId(m.id)?m.id:uid(),name,procs,maxA:Math.min(2000,cnt(m.maxA)),volts:['120','240','both'].indexOf(m.volts)>=0?m.volts:'both',wire:WIRES.indexOf(m.wire)>=0?m.wire:'',rod120:ORD.indexOf(m.rod120)>=0?m.rod120:'',rod240:ORD.indexOf(m.rod240)>=0?m.rod240:'',tig:['lift','hf','acdc'].indexOf(m.tig)>=0?m.tig:'',syn:m.syn===true,spool:m.spool===true,spoolHint:str(m.spoolHint,80),note:str(m.note,200)};
+ }).filter(Boolean);
+ const gear=arr(eq.gear).map(g=>{if(!g||typeof g!=='object')return null;const name=str(g.name,80);if(!name)return null;return{id:okId(g.id)?g.id:uid(),kind:KINDS.indexOf(g.kind)>=0?g.kind:'Other',name}}).filter(Boolean);
+ const items=arr(cs.items).map(i=>{if(!i||typeof i!=='object')return null;const name=str(i.name,80);if(!name)return null;return{id:okId(i.id)?i.id:uid(),name,qty:cnt(i.qty),unit:str(i.unit,16)||'pcs',min:cnt(i.min),q:str(i.q,120)}}).filter(Boolean);
+ return{machines:uniq(machines),gear:uniq(gear),items:uniq(items),sel:typeof eq.selectedMachine==='string'?eq.selectedMachine:'gen',when:raw.exported,parts:['machines','gear','items'],issues:[]};
+}
+function parseCsv(t,dl){
+ const rows=[];let row=[],cell='',q=false;
+ for(let i=0;i<t.length;i++){
+  const c=t.charAt(i);
+  if(q){if(c==='"'){if(t.charAt(i+1)==='"'){cell+='"';i++}else q=false}else cell+=c}
+  else if(c==='"'&&cell==='')q=true;
+  else if(c===dl){row.push(cell);cell=''}
+  else if(c===LF||c===CR){if(c===CR&&t.charAt(i+1)===LF)i++;row.push(cell);cell='';rows.push(row);row=[]}
+  else cell+=c;
+ }
+ if(cell!==''||row.length){row.push(cell);rows.push(row)}
+ return rows.map((r,i)=>({n:i+1,c:r})).filter(o=>o.c.some(x=>x.trim()!==''));
+}
+const yes=v=>/^(y|yes|true|1|x)$/i.test(String(v||'').trim());
+const voltOf=v=>{const s=String(v||''),a=s.indexOf('120')>=0||s.indexOf('110')>=0,b=s.indexOf('240')>=0||s.indexOf('220')>=0;return a&&!b?'120':b&&!a?'240':'both'};
+const procsOf=v=>{const s=String(v||'').toLowerCase(),o=[];if(/mig|gmaw/.test(s))o.push('MIG');if(/flux|fcaw/.test(s))o.push('FCAW');if(/tig|gtaw/.test(s))o.push('TIG');if(/stick|smaw|mma/.test(s))o.push('STICK');return o};
+const tigOf=v=>{const s=String(v||'').toLowerCase();if(s.indexOf('ac')>=0&&s.indexOf('dc')>=0)return'acdc';if(s.indexOf('lift')>=0)return'lift';if(s.indexOf('high')>=0||s.indexOf('hf')>=0)return'hf';return''};
+function wireOf(v){
+ const s=String(v||'').trim();if(!s)return{v:''};
+ const n=parseFloat(s.split('"').join(''));
+ if(isNaN(n))return{v:'',bad:true};
+ const w=n.toFixed(3).replace(/^0/,'');
+ return WIRES.indexOf(w)>=0?{v:w}:{v:'',bad:true};
+}
+function rodOf(v){
+ const s=String(v||'').split('"').join('').split(' ').join('').replace(/in$/i,'');
+ if(!s)return{v:''};
+ if(ORD.indexOf(s)>=0)return{v:s};
+ const n=parseFloat(s);
+ if(!isNaN(n)&&s.indexOf('/')<0){
+  const inch=/mm/i.test(s)?n/25.4:n,k=[['1/16',.0625],['3/32',.094],['1/8',.125],['5/32',.156],['3/16',.1875]].find(p=>Math.abs(p[1]-inch)<.006);
+  if(k)return{v:k[0]};
+ }
+ return{v:'',bad:true};
+}
+function csvImport(txt){
+ const first=txt.split(LF)[0]||'',dl=first.indexOf(',')<0&&first.indexOf(';')>=0?';':',';
+ const all=parseCsv(txt,dl);
+ if(!all.length)return{err:'That file is empty.'};
+ const head=all[0].c.map(h=>h.trim().toLowerCase());
+ const col=(...names)=>{for(const n of names){const i=head.indexOf(n);if(i>=0)return i}return-1};
+ const get=(r,i)=>{const v=i>=0&&i<r.length?r[i].trim():'';return /^'[=+@-]/.test(v)?v.slice(1):v};
+ const rows=all.slice(1),issues=[];
+ if(rows.length>1000)return{err:'That file has too many rows. Split it into smaller files.'};
+ const iName=col('name'),iItem=col('item');
+ const isEq=iName>=0&&(col('category')>=0||col('processes')>=0);
+ const isSu=!isEq&&(iItem>=0||(iName>=0&&(col('count')>=0||col('unit')>=0)));
+ if(isSu){
+  const nI=iItem>=0?iItem:iName,cI=col('count','qty','quantity'),uI=col('unit'),mI=col('reorder at','reorder level','reorder'),lI=col('amazon search link','amazon link','link'),items=[];
+  rows.forEach(o=>{
+   const name=str(get(o.c,nI),80);
+   if(!name){issues.push('Row '+o.n+': skipped, no item name.');return}
+   const cr=get(o.c,cI),mr=get(o.c,mI);
+   let qty=0,min=1;
+   if(cr!==''){const n=Math.floor(+cr);if(isNaN(n)||n<0)issues.push('Row '+o.n+': count ‘'+cr.slice(0,20)+'’ isn’t a number, set to 0.');else qty=cnt(n)}
+   if(mr!==''){const n=Math.floor(+mr);if(isNaN(n)||n<0)issues.push('Row '+o.n+': reorder level ‘'+mr.slice(0,20)+'’ isn’t a number, set to 1.');else min=cnt(n)}
+   let q=name;const lk=get(o.c,lI);
+   if(lk){try{const u=new URL(lk);if(u.hostname.indexOf('amazon.')>=0&&u.searchParams.get('k'))q=str(u.searchParams.get('k'),120)}catch(e){}}
+   items.push({id:uid(),name,qty,unit:str(get(o.c,uI),16)||'pcs',min,q});
+  });
+  if(items.length>300)issues.push('Only the first 300 items were read.');
+  return{d:{machines:[],gear:[],items:uniq(items.slice(0,300)),sel:'gen',parts:['items'],issues,csv:true}};
+ }
+ if(isEq){
+  const cI=col('category'),tI=col('type'),pI=col('processes'),aI=col('max amps','max amperage','amps'),vI=col('input power','input voltage'),wI=col('largest wire (in)','largest wire','wire'),r1=col('largest rod on 120 v','largest rod 120 v'),r2=col('largest rod on 240 v','largest rod 240 v'),gI=col('tig output'),sI=col('synergic mig','synergic'),pgI=col('spool gun'),nI=col('notes','note'),machines=[],gear=[];
+  rows.forEach(o=>{
+   const name=str(get(o.c,iName),80);
+   if(!name){issues.push('Row '+o.n+': skipped, no name.');return}
+   const cat=get(o.c,cI).toLowerCase(),procs=procsOf(get(o.c,pI));
+   if(cat?cat.indexOf('gear')>=0:procs.length===0){const tp=get(o.c,tI).toLowerCase();gear.push({id:uid(),kind:KINDS.find(k=>k.toLowerCase()===tp)||'Other',name});return}
+   if(!procs.length){issues.push('Row '+o.n+': skipped ‘'+name+'’, no process I recognise. Use MIG, flux-core, TIG or stick.');return}
+   const volts=voltOf(get(o.c,vI)),mig=procs.indexOf('MIG')>=0,fc=procs.indexOf('FCAW')>=0;
+   const m={id:uid(),name,procs,maxA:Math.min(2000,cnt(parseFloat(get(o.c,aI)))),volts,wire:'',rod120:'',rod240:'',tig:'',syn:false,spool:false,spoolHint:'',note:str(get(o.c,nI),200)};
+   if(mig||fc){const w=wireOf(get(o.c,wI));m.wire=w.v;if(w.bad)issues.push('Row '+o.n+': wire size ‘'+get(o.c,wI).slice(0,20)+'’ not recognised, left blank.');m.syn=yes(get(o.c,sI))}
+   if(mig)m.spool=yes(get(o.c,pgI));
+   if(procs.indexOf('STICK')>=0){
+    if(volts!=='240'){const r=rodOf(get(o.c,r1));m.rod120=r.v;if(r.bad)issues.push('Row '+o.n+': 120 V rod size ‘'+get(o.c,r1).slice(0,20)+'’ not recognised, left blank.')}
+    if(volts!=='120'){const r=rodOf(get(o.c,r2));m.rod240=r.v;if(r.bad)issues.push('Row '+o.n+': 240 V rod size ‘'+get(o.c,r2).slice(0,20)+'’ not recognised, left blank.')}
+   }
+   if(procs.indexOf('TIG')>=0){m.tig=tigOf(get(o.c,gI));if(!m.tig){m.tig='lift';issues.push('Row '+o.n+': TIG output not given, assumed DC lift start.')}}
+   machines.push(m);
+  });
+  if(machines.length>300||gear.length>300)issues.push('Only the first 300 machines and 300 gear items were read.');
+  return{d:{machines:uniq(machines.slice(0,300)),gear:uniq(gear.slice(0,300)),items:[],sel:'gen',parts:['machines','gear'],issues,csv:true}};
+ }
+ return{err:'I couldn’t find the expected columns. Use a CSV from Download CSV on this page, and keep the header row.'};
+}
+function clearImportUi(){IM.d=null;$('#im-issues').innerHTML='';$('#im-box').hidden=true;const r=$('#im-rep');clearTimeout(r._t);r._t=0;r.textContent='Replace my data'}
+function resetImport(){clearImportUi();$('#im-file').value=''}
+function mergeList(have,inc){
+ const ids=new Set(have.map(x=>x.id)),nms=new Set(have.map(x=>x.name.toLowerCase())),out=have.slice();let n=0,skipped=0;
+ inc.forEach(x=>{if(ids.has(x.id)||nms.has(x.name.toLowerCase())){skipped++;return}out.push(x);ids.add(x.id);nms.add(x.name.toLowerCase());n++});
+ return{out,n,skipped};
+}
+function applyImport(mode){
+ const d=IM.d;if(!d)return;
+ let aM=0,aG=0,aI=0,skipped=0;
+ const has=k=>d.parts.indexOf(k)>=0;
+ if(mode==='replace'){
+  if(has('machines')){EQ.machines=d.machines;aM=d.machines.length;S.mach=d.machines.some(m=>m.id===d.sel)?d.sel:(EQ.machines.some(m=>m.id===S.mach)?S.mach:'gen');if(editId){editId=null;setEditing(false);fillForm(BLANK)}}
+  if(has('gear')){EQ.gear=d.gear;aG=d.gear.length}
+  if(has('items')){INV.items=d.items;aI=d.items.length}
+ }else{
+  const a=mergeList(EQ.machines,d.machines),b=mergeList(EQ.gear,d.gear),c=has('items')?mergeList((INV.items||[]).filter(i=>!i.ex),d.items):{out:INV.items,n:0,skipped:0};
+  EQ.machines=a.out;EQ.gear=b.out;INV.items=c.out;aM=a.n;aG=b.n;aI=c.n;skipped=a.skipped+b.skipped+c.skipped;
+ }
+ saveEq();saveInv();fillMach();renderEquip();renderInv();renderExport();out();
+ resetImport();
+ const bits=[];if(has('machines'))bits.push(pl(aM,'machine'));if(has('gear'))bits.push(pl(aG,'other gear item'));if(has('items'))bits.push(pl(aI,'consumable'));
+ $('#im-msg').textContent=(mode==='replace'?'Restored ':'Added ')+bits.join(', ').replace(/, ([^,]*)$/,' and $1')+'.'+(skipped?' Skipped '+skipped+' already in your data.':'');
+}
+$('#im-file').addEventListener('change',()=>{
+ const f=$('#im-file').files[0],err=$('#im-err');
+ err.textContent='';$('#im-msg').textContent='';clearImportUi();
+ if(!f)return;
+ if(f.size>1048576){err.textContent='That file is too large to be a backup from this app.';return}
+ const rd=new FileReader();
+ rd.onerror=()=>{err.textContent='Couldn’t read that file. Try choosing it again.'};
+ rd.onload=()=>{
+  const txt=String(rd.result).replace(BOM,'');let d=null;
+  if(txt.trim().charAt(0)==='{'){let raw=null;try{raw=JSON.parse(txt)}catch(x){}d=cleanBackup(raw);if(!d){err.textContent='This isn’t a Weld Settings backup. Choose the .json file from Download backup on this page.';return}}
+  else{const r=csvImport(txt);if(r.err){err.textContent=r.err;return}d=r.d}
+  IM.d=d;
+  const dt=new Date(d.when),when=isNaN(dt)?'':' from '+dt.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+  const has=k=>d.parts.indexOf(k)>=0,bits=[];if(has('machines'))bits.push(pl(d.machines.length,'machine'));if(has('gear'))bits.push(pl(d.gear.length,'other gear item'));if(has('items'))bits.push(pl(d.items.length,'consumable'));
+  $('#im-sum').textContent=(d.csv?'The spreadsheet':'The backup'+when)+' contains '+bits.join(', ').replace(/, ([^,]*)$/,' and $1')+'.';
+  const ci=(INV.items||[]).filter(i=>!i.ex).length;
+  const cur=[];if(has('machines'))cur.push(pl(EQ.machines.length,'machine'));if(has('gear'))cur.push(pl(EQ.gear.length,'other gear item'));if(has('items'))cur.push(pl(ci,'consumable'));
+  $('#im-help').textContent='Add keeps what you have and brings in anything new. Replace removes your current '+cur.join(', ').replace(/, ([^,]*)$/,' and $1')+' first.';
+  const iss=d.issues||[];
+  $('#im-issues').innerHTML=iss.length?'<p class="hint">Check these rows:</p><ul class="plain">'+iss.slice(0,8).map(x=>'<li>'+esc(x)+'</li>').join('')+(iss.length>8?'<li>and '+(iss.length-8)+' more</li>':'')+'</ul>':'';
+  $('#im-box').hidden=false;
+ };
+ rd.readAsText(f);
+});
+$('#im-add').onclick=()=>applyImport('add');
+$('#im-rep').onclick=e=>armed(e.currentTarget,()=>applyImport('replace'));
+$('#im-cancel').onclick=resetImport;
+
+(async function(){
+ X.canDl=!window.claude;
+ try{if(window.claude&&claude.use){X.dl=await claude.use('downloads');X.canDl=!!X.dl}}catch(err){}
+ renderExport();
+})();
+
 /* ---------- pages on the URL hash ---------- */
-const VIEWS=["welds","gear","supplies"];let routed=false;
+const VIEWS=["welds","gear","supplies","export"];let routed=false;
 function route(){
  const h=location.hash.slice(1),v=VIEWS.indexOf(h)>=0?h:"welds";
  VIEWS.forEach(x=>{$("#v-"+x).hidden=x!==v});
  document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.getAttribute("href")==="#"+v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
- if(routed)window.scrollTo(0,0);routed=true;
+ if(v==="export")renderExport();if(routed)window.scrollTo(0,0);routed=true;
 }
 addEventListener("hashchange",route);
 
@@ -609,10 +907,11 @@ addEventListener("hashchange",route);
   let changed=false;
   if(d[0]&&!dirty.equipment){EQ=normEq(d[0]);pickMach();changed=true}
   if(d[1]&&Array.isArray(d[1].items)&&!dirty.inventory){INV.items=d[1].items;changed=true}
-  if(changed){fillMach();renderEquip();renderInv();out()}
+  if(changed){fillMach();renderEquip();renderInv();renderExport();out()}
   note("Saved to your account. It follows you to other devices.");
  }catch(err){}
 })();
 </script>
 
-</body></html>
+</body>
+</html>
