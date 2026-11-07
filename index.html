@@ -1,0 +1,618 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Weld Settings</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: one narrow column, three pages on hash tabs. Steel greys, one blue accent, semantic colors only for stock and warnings. */
+:root{--bg:#dde1e4;--panel:#eceff1;--field:#f8fafb;--ink:#1b2127;--mut:#56616b;--line:#c0c8ce;--acc:#1f5fbf;--on:#fff;--wbg:#f5e3cb;--wink:#7a3b00;--okbg:#d3ead8;--okink:#1b5a2b;--cbg:#f5d3cf;--cink:#8a1f17}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191d;--panel:#1e2429;--field:#161b1f;--ink:#e6e9ec;--mut:#98a3ad;--line:#333c44;--acc:#7db4ff;--on:#0d1620;--wbg:#3a2a18;--wink:#f2c48d;--okbg:#1f3a27;--okink:#9fd8ad;--cbg:#44211f;--cink:#f4aaa3;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15191d;--panel:#1e2429;--field:#161b1f;--ink:#e6e9ec;--mut:#98a3ad;--line:#333c44;--acc:#7db4ff;--on:#0d1620;--wbg:#3a2a18;--wink:#f2c48d;--okbg:#1f3a27;--okink:#9fd8ad;--cbg:#44211f;--cink:#f4aaa3;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Barlow,system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px calc(84px + env(safe-area-inset-bottom,0px))}
+h1{font:700 34px/1.05 "Barlow Condensed",Impact,sans-serif;margin:8px 0 14px;letter-spacing:.01em}
+h2{font:700 22px/1.1 "Barlow Condensed",Impact,sans-serif;margin:0 0 10px;text-wrap:balance}
+a{color:var(--acc)}
+.lead{color:var(--mut);margin:0 0 20px;max-width:52ch}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;background:var(--panel);border-top:1px solid var(--line);padding:0 env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+nav.tabs a{flex:1;display:flex;align-items:center;justify-content:center;min-height:56px;padding:8px 6px;border-top:4px solid transparent;font:700 19px/1.2 "Barlow Condensed",Impact,sans-serif;color:var(--mut);text-decoration:none;text-align:center}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-top-color:var(--acc)}
+fieldset{border:0;padding:0;margin:0 0 16px;min-width:0}
+legend{font-weight:600;margin-bottom:6px;padding:0}
+label{font-weight:600}
+.hint{color:var(--mut);font-size:14px;margin:6px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{font:500 15px Barlow,system-ui,sans-serif;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:9px 12px;min-height:44px;cursor:pointer}
+.chips button[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--on);font-weight:600}
+.chips button:disabled{opacity:.4;cursor:not-allowed}
+input[type=text],input[type=number],select{font:500 16px Barlow,system-ui,sans-serif;width:100%;min-width:0;min-height:44px;padding:8px 10px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px}
+input::placeholder{color:var(--mut);opacity:.85}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px;min-width:0}
+.check{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:500;margin-bottom:4px}
+.check input{width:22px;height:22px;accent-color:var(--acc)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media(max-width:520px){.two{grid-template-columns:1fr}}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.btn{font:600 16px Barlow,system-ui,sans-serif;min-height:44px;padding:0 16px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--on)}
+.btn.danger{color:var(--cink)}
+.step{width:44px;height:44px;font:600 22px Barlow,system-ui,sans-serif;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:6px;cursor:pointer}
+a.buy{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1px solid var(--acc);border-radius:6px;color:var(--acc);font-weight:600;text-decoration:none}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.disc{color:var(--mut);font-size:14px;margin:10px 0 0}
+.err{color:var(--cink);margin:8px 0 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.list{list-style:none;margin:0 0 16px;padding:0;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.list>li{padding:12px 14px;border-top:1px solid var(--line)}
+.list>li:first-child{border-top:0}
+.list>li.empty{color:var(--mut)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.row.sp{margin-top:8px}
+.meta{display:block;color:var(--mut);font-size:14px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.inuse{font-size:13px;font-weight:600;color:var(--okink);background:var(--okbg);border-radius:999px;padding:2px 9px;margin-left:6px}
+.qty{display:flex;align-items:center;gap:4px}
+.unit{color:var(--mut);margin-left:6px}
+output{display:inline-block;min-width:44px;text-align:center;font:700 28px/1 "Barlow Condensed",Impact,sans-serif;font-variant-numeric:tabular-nums}
+.pill{font:600 13px/1 Barlow,system-ui,sans-serif;padding:6px 10px;border-radius:999px}
+.s-ok{background:var(--okbg);color:var(--okink)}
+.s-low{background:var(--wbg);color:var(--wink)}
+.s-out{background:var(--cbg);color:var(--cink)}
+.tag{font-size:13px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:1px 8px;margin-left:6px}
+.note{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-bottom:12px;color:var(--mut)}
+details{margin-top:4px}
+summary{cursor:pointer;color:var(--acc);font-weight:600;min-height:44px;display:flex;align-items:center}
+.edit{padding-top:4px}
+#res{margin-top:8px}
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:12px}
+.hero .what{color:var(--mut);margin:0}
+.amps{font:700 64px/1 "Barlow Condensed",Impact,sans-serif;margin:4px 0 12px}
+.amps small{font-size:28px;font-weight:500;color:var(--mut);margin-left:6px}
+.track{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,#e8cf85,#c88a3a,#8a4a2e,#6a4fa0,#2f5fb5)}
+.mark{position:absolute;top:-4px;bottom:-4px;border:2px solid var(--ink);border-radius:4px;background:rgba(255,255,255,.25)}
+.scale{display:flex;justify-content:space-between;color:var(--mut);font-size:13px;margin-top:4px}
+dl{margin:0}dl>div{display:grid;grid-template-columns:140px 1fr;gap:10px;padding:7px 0;border-top:1px solid var(--line)}
+dl>div:first-child{border-top:0}
+dt{color:var(--mut)}dd{margin:0;font-weight:500;min-width:0}
+@media(max-width:520px){dl>div{grid-template-columns:1fr;gap:0}}
+ul.plain{margin:0;padding-left:20px}ul.plain li{margin:5px 0}
+.warn{background:var(--wbg);color:var(--wink);border-color:transparent}
+.warn li::marker{color:var(--wink)}
+.foot{color:var(--mut);font-size:14px;margin-top:20px}
+</style>
+<main>
+<h1>Weld settings</h1>
+<nav class="tabs" aria-label="Pages">
+<a href="#welds">Settings</a><a href="#gear">My equipment</a><a href="#supplies">Consumables</a>
+</nav>
+
+<section id="v-welds" hidden>
+<p class="lead">Tell me what you’re welding and how. Settings, lead setup, filler and base-metal specs update as you choose.</p>
+<fieldset><legend><label for="mach">Your machine</label></legend><select id="mach"></select>
+<p class="hint" id="machHint">Add your own machine on the <a href="#gear">My equipment</a> page to get its limits and lead setup here.</p></fieldset>
+<fieldset><legend>Welding process</legend><div class="chips" id="proc"></div></fieldset>
+<div class="two">
+<fieldset><legend><label for="mat">Material</label></legend><select id="mat"></select></fieldset>
+<fieldset><legend><label for="thick">Thickness</label></legend><select id="thick"></select></fieldset>
+</div>
+<fieldset><legend>Joint</legend><div class="chips" id="joint"></div></fieldset>
+<fieldset><legend>Position</legend><div class="chips" id="pos"></div></fieldset>
+<fieldset><legend>Your machine’s input power</legend><div class="chips" id="volt"></div></fieldset>
+<div id="res" aria-live="polite"></div>
+</section>
+
+<section id="v-gear" hidden>
+<p class="lead">Enter the machines and gear you own. Your machines appear on the Settings page and set its limits, such as maximum amps, wire size and lead setup.</p>
+<h2>Your machines</h2>
+<ul class="list" id="mList"></ul>
+<div class="card" id="mFormCard">
+<h2 id="mFormTitle">Add a machine</h2>
+<fieldset><legend>Start from a template</legend><div class="chips" id="templ"></div>
+<p class="hint">Templates hold typical values. Change anything to match your machine’s data plate.</p></fieldset>
+<form id="mForm" novalidate>
+<div class="field"><label for="f-name">Name</label><input id="f-name" type="text" autocomplete="off" placeholder="Brand and model"></div>
+<fieldset><legend>Processes it runs</legend><div class="chips" id="f-procs"></div></fieldset>
+<div class="two">
+<div class="field"><label for="f-amps">Maximum amps</label><input id="f-amps" type="number" inputmode="numeric" min="0" placeholder="200"></div>
+<fieldset><legend>Input power</legend><div class="chips" id="f-volts"></div></fieldset>
+</div>
+<div class="field" id="r-wire"><label for="f-wire">Largest wire diameter</label><select id="f-wire"></select></div>
+<div class="two" id="r-rods">
+<div class="field" id="r-rod120"><label for="f-rod120">Largest stick rod on 120 V</label><select id="f-rod120"></select></div>
+<div class="field" id="r-rod240"><label for="f-rod240">Largest stick rod on 240 V</label><select id="f-rod240"></select></div>
+</div>
+<div class="field" id="r-tig"><label for="f-tig">TIG output</label><select id="f-tig"></select></div>
+<label class="check" id="r-syn"><input id="f-syn" type="checkbox"> Synergic MIG (sets voltage and wire speed from amps)</label>
+<label class="check" id="r-spool"><input id="f-spool" type="checkbox"> I have a spool gun for aluminum</label>
+<div class="field"><label for="f-note">Notes</label><input id="f-note" type="text" autocomplete="off" placeholder="Torch, regulator, anything to remember"></div>
+<div class="acts"><button class="btn pri" type="submit" id="mSave">Add machine</button><button class="btn" type="button" id="mCancel" hidden>Cancel</button></div>
+<p class="err" id="f-err" role="alert"></p>
+<p class="hint" id="f-msg" aria-live="polite"></p>
+</form>
+</div>
+<h2>Other gear</h2>
+<ul class="list" id="gList"></ul>
+<form class="card" id="gForm" novalidate>
+<div class="two">
+<div class="field"><label for="g-kind">Type</label><select id="g-kind"></select></div>
+<div class="field"><label for="g-name">Name</label><input id="g-name" type="text" autocomplete="off" placeholder="WP-17V 13 ft TIG torch"></div>
+</div>
+<div class="acts"><button class="btn pri" type="submit">Add gear</button></div>
+<p class="err" id="g-err" role="alert"></p>
+</form>
+</section>
+
+<section id="v-supplies" hidden>
+<p class="lead">Keep count of what’s on the shelf. Items at or below their reorder level move to the top, each with a link to find it on Amazon.</p>
+<div class="chips" id="invFilter"><button type="button" id="fAll" data-v="all">All</button><button type="button" id="fNeed" data-v="need">Needs reorder</button></div>
+<p class="hint" id="invSum" aria-live="polite"></p>
+<div class="note" id="exNote" hidden><span>These are examples. Change a count and the item becomes yours.</span><button class="btn" type="button" id="exClear">Clear examples</button></div>
+<ul class="list" id="invList" style="margin-top:12px"></ul>
+<div class="card">
+<h2>Add an item</h2>
+<form id="addForm" novalidate>
+<div class="field"><label for="a-name">Item</label><input id="a-name" type="text" autocomplete="off" placeholder="ER70S-6 .035 wire"></div>
+<div class="three">
+<div class="field"><label for="a-qty">Count</label><input id="a-qty" type="number" inputmode="numeric" min="0" value="1"></div>
+<div class="field"><label for="a-unit">Unit</label><input id="a-unit" type="text" autocomplete="off" value="pcs"></div>
+<div class="field"><label for="a-min">Reorder at</label><input id="a-min" type="number" inputmode="numeric" min="0" value="1"></div>
+</div>
+<div class="acts"><button class="btn pri" type="submit">Add item</button></div>
+<p class="err" id="a-err" role="alert"></p>
+<p class="hint" id="invMsg" aria-live="polite"></p>
+</form>
+<fieldset id="quickBox" style="margin:12px 0 0"><legend>Common items</legend><div class="chips" id="quick"></div></fieldset>
+</div>
+<p class="disc" id="disc" hidden></p>
+</section>
+
+<p class="foot">Settings are starting points drawn from common manufacturer charts and AWS filler classes. Run a test coupon on scrap of the same thickness and adjust. For structural, pressure or safety-critical work, follow the written welding procedure and use a qualified welder.</p>
+<p class="foot" id="sync">Saved in this browser.</p>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>"i"+Math.random().toString(36).slice(2,9);
+
+/* Amazon Associates tracking ID goes here, for example "yourname-20". Left empty, links still work but earn nothing. */
+const AMAZON_TAG="lurepicker-20";
+const amz=q=>"https://www.amazon.com/s?k="+encodeURIComponent(q).replace(/%20/g,"+")+(AMAZON_TAG?"&tag="+encodeURIComponent(AMAZON_TAG):"");
+const buyLink=(q,label,aria)=>`<a class="buy" href="${esc(amz(q))}" target="_blank" rel="sponsored noopener"${aria?` aria-label="${esc(aria)}"`:""}>${esc(label)}</a>`;
+const DISC=AMAZON_TAG?"Amazon links are affiliate links. As an Amazon Associate I earn from qualifying purchases.":"";
+
+/* ---------- storage: the viewer's account when available, this browser otherwise ---------- */
+const store={db:null,uid:null},latest={},busy={},timers={},dirty={equipment:false,inventory:false};
+function lsGet(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):null}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+const dpath=n=>"data/users/"+store.uid+"/"+n;
+function note(t){$("#sync").textContent=t}
+function saveDoc(n,data){
+ latest[n]=JSON.parse(JSON.stringify(data));lsSet("wk-"+n,latest[n]);
+ if(!store.db)return;
+ clearTimeout(timers[n]);timers[n]=setTimeout(()=>flush(n),600);
+}
+async function flush(n){
+ if(!store.db)return;
+ if(busy[n]){timers[n]=setTimeout(()=>flush(n),600);return}
+ busy[n]=true;
+ try{await store.db.doc(dpath(n)).set(latest[n]);note("Saved to your account. It follows you to other devices.")}
+ catch(e){
+  if(e&&e.code==="invalid_argument"){store.db=null;note("Saved in this browser. This page can’t save to your account.")}
+  else note("Can’t reach your account right now. Changes are kept in this browser.");
+ }
+ busy[n]=false;
+}
+async function readDoc(n){
+ try{const s=await store.db.doc(dpath(n)).get();return s.exists?JSON.parse(JSON.stringify(s.data())):null}catch(e){return null}
+}
+
+/* ---------- weld data ---------- */
+const MAT={
+mild:{n:"Mild steel (A36, 1018, A500 tube)",g:"A36 plate, 1018, A500 tube",s:"A36: yield 36 ksi, tensile 58–80 ksi",w:"Excellent. Forgiving of heat and fit-up.",pre:"None under 1/2\" thick above 50°F. Preheat to about 150°F for 1\" and over, or if the metal is cold.",prep:"Grind off mill scale, rust, paint and oil to bright metal about 1\" back from the joint.",f:"st"},
+ss304:{n:"Stainless 304/304L",g:"304 / 304L austenitic stainless",s:"Yield 30 ksi, tensile 75 ksi",w:"Good. Warps and loses corrosion resistance if overheated.",pre:"None. Keep interpass under 350°F.",prep:"Clean with a stainless-only brush and acetone. Never share tools with carbon steel.",f:"ss"},
+ss316:{n:"Stainless 316/316L",g:"316 / 316L austenitic stainless",s:"Yield 30 ksi, tensile 75 ksi",w:"Good. Same heat control as 304.",pre:"None. Keep interpass under 350°F.",prep:"Clean with a stainless-only brush and acetone. Never share tools with carbon steel.",f:"ss"},
+al6061:{n:"Aluminum 6061",g:"6061-T6",s:"Base: yield 40 ksi, tensile 45 ksi. In the weld zone it drops to roughly 15–20 ksi unless re-heat-treated.",w:"Good, but crack-sensitive with the wrong filler. Heat drains away fast.",pre:"Thin: none. Over 1/4\", preheat to 250°F maximum.",prep:"Remove oxide with a dedicated stainless brush right before welding, then wipe with acetone.",f:"al"},
+al5052:{n:"Aluminum 5052",g:"5052-H32",s:"Yield 28 ksi, tensile 33 ksi",w:"Excellent. Resistant to cracking; common for sheet and tanks.",pre:"None for most work.",prep:"Remove oxide with a dedicated stainless brush right before welding, then wipe with acetone.",f:"al"},
+cm:{n:"Chromoly 4130",g:"4130 chromoly",s:"Yield about 63 ksi, tensile about 97 ksi (normalized)",w:"Fair. It air-hardens, so it cracks if it cools too fast.",pre:"Tube under .120\": none. Thicker: preheat 200–400°F and cool slowly.",prep:"Clean to bright metal and wipe with acetone.",f:"cm"}};
+const TH=[["0.036","20 ga, .036\" (0.9 mm)"],["0.048","18 ga, .048\" (1.2 mm)"],["0.060","16 ga, .060\" (1.5 mm)"],["0.075","14 ga, .075\" (1.9 mm)"],["0.105","12 ga, .105\" (2.7 mm)"],["0.125","1/8\" (3.2 mm)"],["0.1875","3/16\" (4.8 mm)"],["0.25","1/4\" (6.4 mm)"],["0.375","3/8\" (9.5 mm)"],["0.5","1/2\" (12.7 mm)"]];
+const NO={STICKal:"Stick on aluminum is weak and messy. Use TIG, or MIG with a spool gun.",FCAWal:"There is no practical flux-core wire for aluminum. Use TIG, or MIG with a spool gun.",FCAWcm:"Flux-core isn’t recommended on 4130. Use TIG, or low-hydrogen stick if you must."};
+const K={MIG:{st:1.05,ss:.95,al:1.2,cm:1},FCAW:{st:1.1,ss:1},TIG:{st:1,ss:.85,al:1.2,cm:.9}};
+const J={butt:1,lap:1.05,tee:1.1,corner:.95},P={flat:1,horiz:.95,vert:.88,over:.85};
+const R={"E6013":{"1/16":[20,40],"3/32":[40,90],"1/8":[75,130],"5/32":[110,170]},"E7018":{"3/32":[70,110],"1/8":[90,150],"5/32":[120,200],"3/16":[160,240]},"E308L-16":{"3/32":[40,80],"1/8":[60,110],"5/32":[90,150]}};
+const ORD=["1/16","3/32","1/8","5/32","3/16"];
+const PROCS=[["MIG","MIG"],["FCAW","Flux-core"],["TIG","TIG"],["STICK","Stick"]];
+const PN={MIG:"MIG (GMAW)",FCAW:"Flux-core (FCAW)",TIG:"TIG (GTAW)",STICK:"Stick (SMAW)"};
+const r5=x=>Math.max(5,Math.round(x/5)*5),r10=x=>Math.max(10,Math.round(x/10)*10),h5=x=>Math.round(x*2)/2;
+
+/* ---------- state ---------- */
+const S={mach:"gen",proc:"MIG",mat:"mild",thick:"0.125",joint:"tee",pos:"flat",volt:"240"};
+const normEq=d=>({machines:Array.isArray(d.machines)?d.machines:[],gear:Array.isArray(d.gear)?d.gear:[],sel:typeof d.sel==="string"?d.sel:"gen"});
+let EQ={machines:[],gear:[],sel:"gen"},INV={items:null};
+function pickMach(){
+ const ok=id=>EQ.machines.some(m=>m.id===id);
+ S.mach=(EQ.sel==="gen"||ok(EQ.sel))?EQ.sel:(EQ.machines[0]?EQ.machines[0].id:"gen");
+ if(S.mach!=="gen"&&!ok(S.mach))S.mach="gen";
+}
+function saveEq(){dirty.equipment=true;saveDoc("equipment",{machines:EQ.machines,gear:EQ.gear,sel:S.mach})}
+function saveInv(){dirty.inventory=true;saveDoc("inventory",{items:INV.items||[]})}
+
+/* ---------- settings page ---------- */
+function curMC(){
+ const m=EQ.machines.find(x=>x.id===S.mach);
+ if(!m)return{name:""};
+ return{name:m.name,procs:m.procs,maxA:+m.maxA||0,maxWire:m.wire?+("0"+m.wire):0,rod120:m.rod120||"",rod240:m.rod240||"",tig:m.tig||"",syn:!!m.syn,spool:!!m.spool,spoolHint:m.spoolHint||"",volts:m.volts||"both"};
+}
+function leads(p,f,MC){
+ const PL="Positive (+) socket",NG="Negative (−) socket",o=[];
+ if(p==="MIG"){
+  if(f==="al")o.push(["Spool gun",(MC.spoolHint||"Spool gun")+" into the machine’s spool-gun connection, running DCEP. Follow the spool gun’s own hookup sheet."],["Work clamp",NG+", on clean bare metal near the joint"],["Gas","Argon to the gas inlet"],["Wire path","U-groove roll, and a Teflon liner if you use the standard gun"]);
+  else o.push(["Gun polarity lead",PL+" (DCEP)"],["Work clamp",NG+", on bare metal near the joint"],["Gas","Regulator to the gas inlet"],["Drive roll","V-groove roll matching your wire size"]);
+ }else if(p==="FCAW"){
+  const ss=f==="ss";
+  o.push(["Gun polarity lead",ss?PL+" (DCEP, gas-shielded wire)":NG+" (DCEN, self-shielded wire)"],["Work clamp",ss?NG:PL],["Gas",ss?"Regulator to the gas inlet":"None for self-shielded wire"],["Drive roll","Knurled roll for flux-core wire"]);
+ }else if(p==="STICK"){
+  o.push(["Electrode holder",PL+" (DCEP) for E7018, E6011 and E308L. E6013 also runs on negative."],["Work clamp",NG],["MIG gun","Set it aside and keep it clear of the work. Some multi-process machines keep the gun live in stick mode."]);
+ }else{
+  o.push(["TIG torch",NG+" (DCEN)"],["Work clamp",PL],["Gas","Argon supply to the torch gas connection; the torch hand valve controls flow"]);
+ }
+ o.push(["Check",(MC.name?"Confirm against the polarity diagram in the "+MC.name+" manual and the markings on the panel. ":"Confirm against your machine’s manual and panel markings. ")+"Wrong polarity gives a spattery, unstable arc."]);
+ return o;
+}
+function calc(){
+ const m=MAT[S.mat],f=m.f,t=+S.thick,p=S.proc,v120=S.volt==="120",warn=[],tech=[],buy=[],MC=curMC();
+ if(NO[p+f])return{bad:NO[p+f]};
+ if(MC.procs&&MC.procs.indexOf(p)<0)return{bad:"Your "+MC.name+" isn’t set up for "+PN[p]+". Choose a process it runs, or change the machine on the My equipment page."};
+ if(MC.name&&p==="TIG"&&f==="al"&&MC.tig!=="acdc")return{bad:"Your "+MC.name+" runs DC TIG only. Aluminum needs AC, so use MIG with a spool gun."};
+ const tc=Math.min(t,.25);let lo,hi,set=[],con=[];
+ if(p==="STICK"){
+  const rod=f==="ss"?(S.mat==="ss316"?"E316L-16":"E308L-16"):f==="cm"?"E7018":(t<.125?"E6013":"E7018");
+  const tb=R[rod==="E316L-16"?"E308L-16":rod];
+  let ds=t<=.075?"1/16":t<=.125?"3/32":t<=.1875?"1/8":"5/32";
+  const mx=MC.name?(v120?MC.rod120:MC.rod240):"";
+  if(mx&&ORD.indexOf(ds)>ORD.indexOf(mx)){ds=mx;warn.push("The largest rod your "+MC.name+" runs on "+(v120?"120":"240")+" V is "+mx+"\". Heavier plate needs more passes"+(v120&&MC.volts==="both"?" or 240 V.":"."))}
+  if(!tb[ds]){const av=ORD.filter(k=>tb[k]&&(!mx||ORD.indexOf(k)<=ORD.indexOf(mx)));ds=av.length?(av.filter(k=>ORD.indexOf(k)<=ORD.indexOf(ds)).pop()||av[0]):Object.keys(tb)[0]}
+  let [a,b]=tb[ds];if(S.pos!=="flat")b=a+Math.round(.6*(b-a));lo=a;hi=b;
+  set=[["Polarity",rod==="E6013"?"AC or DCEP (electrode positive)":"DCEP (electrode positive)"],["Electrode size",ds+"\""],["Arc length","About the width of the rod’s core wire"],["Travel angle","Drag at 10–15°"]];
+  con=[["Electrode",rod+(f==="st"?(rod==="E7018"?" (structural, low-hydrogen). E6011 if the metal is rusty or you run AC.":" (easy arc). E6011 if the metal is rusty."):f==="cm"?" (E8018-B2 for high-strength match)":"")],["Rod care",rod==="E7018"||f==="cm"?"Keep dry. Rebake or hold in a rod oven (about 250°F).":"Keep dry."]];
+  buy.push(["Electrodes",rod+" "+ds+" "+(f==="ss"?"stainless steel ":"")+"welding electrodes"]);
+  if(t<.06)warn.push("Under 1/16\" stick burns through easily. TIG or MIG gives much better control.");
+  if(v120&&hi>90)warn.push("A 120 V stick machine tops out near 90 A (about 3/32\" rods). Use 240 V for this thickness.");
+  tech.push("Chip slag completely between passes and wire-brush before the next one.");
+ }else{
+  const base=tc*1000*K[p][f]*J[S.joint]*P[S.pos];
+  lo=r5(base*.9);hi=Math.max(lo+5,r5(base*1.1));
+  if(MC.maxA&&hi>MC.maxA){hi=MC.maxA;lo=Math.min(lo,Math.max(5,hi-10));warn.push("Your "+MC.name+" tops out at "+MC.maxA+" A. Bevel the joint and run multiple passes.")}
+  const cap={MIG:140,FCAW:130,TIG:140}[p];
+  if(v120&&hi>cap)warn.push("That’s more than a 120 V machine can hold at full duty. Use 240 V, or bevel and run multiple lighter passes.");
+  if(p==="TIG"){
+   const tg=hi<=60?"1/16\"":hi<=150?"3/32\"":hi<=250?"1/8\"":"5/32\"";
+   const fd=t<=.06?"1/16\"":t<=.15?"3/32\"":"1/8\"";
+   const fl={mild:"ER70S-2",ss304:"ER308L",ss316:"ER316L",al6061:"ER4043 (flows well) or ER5356 (stronger)",al5052:"ER5356",cm:"ER70S-2 (ER80S-D2 for higher strength)"}[S.mat];
+   set=[["Polarity",f==="al"?"AC, 70–75% electrode-negative balance, 100–120 Hz":"DCEN (electrode negative)"],["Tungsten",tg+" "+(f==="al"?"2% lanthanated or zirconiated":"2% lanthanated, ground to a point")],["Shielding gas","100% argon, 15–20 CFH"],["Cup","#7 (or #8 with a gas lens)"],[MC.tig==="lift"?"Amp control":"Pedal or torch switch",MC.tig==="lift"?"Set on the panel. Run mid-range and travel faster as the part heats.":"Start near the top of the range and ease off as the part heats. Use a foot pedal if you have one."]];
+   con=[["Filler",fl],["Filler diameter",fd]];
+   buy.push(["Filler rod",fl.split(/[ (]/)[0]+" TIG filler rod "+fd.replace("\"","")+" inch"]);
+   buy.push(["Tungsten","2% lanthanated tungsten electrodes "+tg.replace("\"","")+" inch"]);
+   tech.push("Keep arc length about one tungsten diameter. Dip filler into the leading edge of the puddle and keep its hot end inside the gas shield.");
+   if(f==="ss")tech.push("Back-purge with argon on full-penetration joints to avoid sugaring on the root side.");
+  }else{
+   let d,ka,wire,gas,pol,so,vf;
+   if(p==="MIG"){
+    if(f==="al"){d=t<=.125?.035:.047;if(MC.maxWire&&d>MC.maxWire)d=MC.maxWire;ka=d===.035?.30:.38;wire=S.mat==="al5052"?"ER5356":"ER4043 or ER5356";gas="100% argon, 25–35 CFH";pol="DCEP";vf=a=>14.5+.035*a;
+     if(!MC.spool)warn.push("Aluminum MIG needs a spool gun or push-pull gun, a U-groove drive roll and a Teflon liner. Soft wire tangles in a standard gun."+(MC.spoolHint?" "+MC.spoolHint+" is listed as compatible with your machine.":""))}
+    else{d=f==="ss"?(t<=.1?.030:t<=.25?.035:.045):(t<=.075?.023:t<=.2?.035:.045);if(MC.maxWire&&d>MC.maxWire)d=MC.maxWire;ka={.023:.4,.03:.5,.035:.6,.045:.75}[d]||.5;
+     wire=f==="ss"?(S.mat==="ss316"?"ER316LSi":"ER308LSi"):f==="cm"?"ER70S-2 (ER80S-D2 for higher strength)":"ER70S-6";
+     gas=f==="ss"?"98% Ar / 2% CO2 or tri-mix, 25–30 CFH":"75% Ar / 25% CO2, 20–30 CFH";pol="DCEP";vf=a=>14+.045*a}
+    so="3/8\"–1/2\"";
+    tech.push(f==="al"?"Push the gun 10–15° and keep moving. Aluminum soaks up heat, then suddenly floods.":"A steady crackle like frying bacon is right. Stuttering means wire speed is too low or voltage too high.");
+   }else{
+    d=t<=.1?.030:t<=.2?.035:.045;if(MC.maxWire&&d>MC.maxWire)d=MC.maxWire;ka={.03:.5,.035:.6,.045:.75}[d]||.5;
+    if(f==="ss"){wire="E308LT1-1 (gas-shielded)";gas="75% Ar / 25% CO2, 35–45 CFH";pol="DCEP"}
+    else{wire="E71T-11 (self-shielded). E71T-1 if you run gas.";gas="None for E71T-11. For E71T-1: 75/25 or 100% CO2, 35–45 CFH.";pol="DCEN for E71T-11, DCEP for E71T-1"}
+    so="3/4\"";vf=a=>15+.04*a;
+    tech.push("Drag the gun 10–15°. Chip slag and wire-brush between passes.");
+    if(t<.06)warn.push("Flux-core is poor on sheet under 1/16\". Use MIG with gas for thin steel.");
+   }
+   const dstr="."+String(d).slice(2).padEnd(3,"0");
+   set=[["Voltage",h5(vf(lo))+"–"+h5(vf(hi))+" V"],["Wire speed","about "+r10(lo/ka)+"–"+r10(hi/ka)+" in/min"],["Polarity",pol],["Stickout",so],["Shielding gas",gas]];
+   con=[["Wire",wire],["Wire diameter",dstr+"\""]];
+   buy.push(["Wire",wire.split(/[ (]/)[0]+" "+dstr+" "+(f==="al"?"aluminum ":"")+(p==="MIG"?"MIG welding wire":"flux core welding wire")]);
+  }
+ }
+ set.unshift(["Amperage",lo+"–"+hi+" A"]);
+ if(MC.syn&&(p==="MIG"||p==="FCAW"))tech.unshift("Synergic mode: set amperage to about "+Math.round((lo+hi)/2)+" A (or pick the thickness) and the machine sets voltage and wire speed. Trim voltage to taste. The voltage and wire speed above are your cross-check.");
+ if(MC.tig==="lift"&&p==="TIG")tech.unshift("Lift TIG: touch the tungsten to the work, then lift to start the arc. There’s no high-frequency start, so keep the tungsten clean.");
+ const jt={butt:"Butt joint: leave a gap of about half the thickness for full penetration on thin metal, and tack every few inches to stop it pulling shut.",lap:"Lap joint: aim at the root and favor the lower plate. Fillet leg about equal to the thinner metal.",tee:"T-joint: aim into the root, 45° to each plate, with fillet leg about equal to the thinner metal.",corner:"Corner joint: set the edges flush for an outside corner, and tack both ends first."}[S.joint];
+ tech.unshift(jt);
+ tech.push({flat:"Flat: steady travel speed. Watch the puddle edges, not the arc.",horiz:"Horizontal: angle the torch or rod 5–10° upward so the puddle doesn’t sag.",vert:"Vertical: go uphill for anything structural or over 1/8\" (downhill only on thin sheet where penetration isn’t critical). Amps are trimmed about 12% here.",over:"Overhead: small puddle, stringer beads, move briskly, and wear a cap and cover. Amps are trimmed about 15% here."}[S.pos]);
+ if(t>.1875)warn.push("At this thickness, bevel butt joints 30–37° per side (60–75° included) with a 1/16\" land and 1/16\"–1/8\" gap, then weld in multiple passes. Amps shown are per pass.");
+ if(t<=.06&&f==="ss")warn.push("Thin stainless warps quickly. Use the low end of the range, tack closely, and use a copper or aluminum backer if you can.");
+ if(f==="cm")warn.push("For roll cages, aircraft or other safety-critical frames, follow the governing spec and let the part cool slowly. Don’t quench.");
+ return{lo,hi,set,con,warn,tech,m,p,lead:leads(p,f,MC),shop:buy.map(b=>buyLink(b[1],b[0]+" on Amazon")).join("")};
+}
+const row=a=>"<dl>"+a.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")+"</dl>";
+const lis=a=>'<ul class="plain">'+a.map(x=>`<li>${x}</li>`).join("")+"</ul>";
+function out(){
+ syncControls();
+ const r=calc(),m=MAT[S.mat],th=TH.find(x=>x[0]===S.thick)[1];
+ if(r.bad){$("#res").innerHTML=`<div class="card warn"><h2>Not a good match</h2><p style="margin:0">${esc(r.bad)}</p></div>`;return}
+ const hd=`<div class="hero"><p class="what">${PN[S.proc]} on ${m.n}, ${th}</p><div class="amps">${r.lo}–${r.hi}<small>amps</small></div><div class="track"><div class="mark" style="left:${r.lo/3}%;width:${(r.hi-r.lo)/3}%"></div></div><div class="scale"><span>0</span><span>150</span><span>300 A</span></div></div>`;
+ $("#res").innerHTML=hd+
+ `<div class="card"><h2>Machine settings</h2>${row(r.set)}</div>`+
+ `<div class="card"><h2>Lead setup</h2>${row(r.lead)}</div>`+
+ `<div class="card"><h2>Filler and consumables</h2>${row(r.con)}<div class="links">${r.shop}</div>${DISC?`<p class="disc">${esc(DISC)}</p>`:""}</div>`+
+ `<div class="card"><h2>Base metal</h2>${row([["Grade",m.g],["Strength",m.s],["Weldability",m.w],["Preheat",m.pre],["Prep",m.prep]])}</div>`+
+ `<div class="card"><h2>Joint and technique</h2>${lis(r.tech)}</div>`+
+ (r.warn.length?`<div class="card warn"><h2>Watch for</h2>${lis(r.warn)}</div>`:"");
+}
+function paint(id,key){[...$("#"+id).children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===S[key])))}
+function chips(id,opts,key){
+ const el=$("#"+id);
+ el.innerHTML=opts.map(([v,l])=>`<button type="button" data-v="${v}">${l}</button>`).join("");
+ el.onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;S[key]=b.dataset.v;paint(id,key);out()};
+ paint(id,key);
+}
+function sel(id,opts,key){
+ const el=$("#"+id);
+ el.innerHTML=opts.map(([v,l])=>`<option value="${v}">${l}</option>`).join("");
+ el.value=S[key];el.onchange=()=>{S[key]=el.value;out()};
+}
+function syncControls(){
+ const M=curMC(),has=!!M.name;
+ [...$("#proc").children].forEach(b=>{const ok=!has||M.procs.indexOf(b.dataset.v)>=0;b.disabled=!ok;b.title=ok?"":"Not available on your "+M.name});
+ if(has&&M.procs.indexOf(S.proc)<0)S.proc=M.procs[0];
+ [...$("#volt").children].forEach(b=>{const ok=!has||M.volts==="both"||M.volts===b.dataset.v;b.disabled=!ok;b.title=ok?"":"Your "+M.name+" doesn’t run on "+b.dataset.v+" V"});
+ if(has&&M.volts!=="both")S.volt=M.volts;
+ paint("proc","proc");paint("volt","volt");
+}
+function fillMach(){
+ const el=$("#mach");
+ el.innerHTML=EQ.machines.map(m=>`<option value="${esc(m.id)}">${esc(m.name)}</option>`).join("")+'<option value="gen">Other or generic machine</option>';
+ if(S.mach!=="gen"&&!EQ.machines.some(m=>m.id===S.mach))S.mach="gen";
+ el.value=S.mach;
+ $("#machHint").hidden=EQ.machines.length>0;
+}
+$("#mach").onchange=()=>{S.mach=$("#mach").value;saveEq();out()};
+
+/* ---------- equipment page ---------- */
+const WIRES=[".023",".030",".035",".045"],KINDS=["TIG torch","Spool gun","Regulator","Gas cylinder","Helmet","Grinder","Clamps and magnets","Other"];
+const BLANK={name:"",procs:["MIG"],maxA:"",volts:"both",wire:".035",rod120:"",rod240:"",tig:"lift",syn:false,spool:false,note:""};
+const TEMPL=[
+ {label:"YesWelder MIG-205DS",m:{name:"YesWelder MIG-205DS",procs:["MIG","FCAW","TIG","STICK"],maxA:200,volts:"both",wire:".035",rod120:"1/8",rod240:"5/32",tig:"lift",syn:true,spool:false,spoolHint:"The YesWelder LBT150 spool gun",note:"TIG torch is sold separately."}},
+ {label:"120 V MIG and flux-core",m:{name:"",procs:["MIG","FCAW"],maxA:140,volts:"120",wire:".035",rod120:"",rod240:"",tig:"",syn:false,spool:false,note:""}},
+ {label:"Multi-process, 200 A class",m:{name:"",procs:["MIG","FCAW","TIG","STICK"],maxA:200,volts:"both",wire:".035",rod120:"3/32",rod240:"5/32",tig:"lift",syn:false,spool:false,note:""}},
+ {label:"AC/DC TIG",m:{name:"",procs:["TIG","STICK"],maxA:200,volts:"240",wire:"",rod120:"",rod240:"5/32",tig:"acdc",syn:false,spool:false,note:""}},
+ {label:"Stick inverter",m:{name:"",procs:["STICK"],maxA:160,volts:"both",wire:"",rod120:"3/32",rod240:"5/32",tig:"",syn:false,spool:false,note:""}}
+];
+let fProcs=new Set(),fVolts="both",editId=null,formHint="";
+const rodOpts='<option value="">Not set</option>'+ORD.map(r=>`<option value="${r}">${r}"</option>`).join("");
+$("#f-wire").innerHTML='<option value="">Not set</option>'+WIRES.map(w=>`<option value="${w}">${w}"</option>`).join("");
+$("#f-rod120").innerHTML=rodOpts;$("#f-rod240").innerHTML=rodOpts;
+$("#f-tig").innerHTML='<option value="lift">DC, lift start</option><option value="hf">DC, high-frequency start</option><option value="acdc">AC/DC, high-frequency start</option>';
+$("#g-kind").innerHTML=KINDS.map(k=>`<option value="${k}">${k}</option>`).join("");
+$("#f-procs").innerHTML=PROCS.map(([v,l])=>`<button type="button" data-v="${v}">${l}</button>`).join("");
+$("#f-volts").innerHTML=[["120","120 V"],["240","240 V"],["both","Both"]].map(([v,l])=>`<button type="button" data-v="${v}">${l}</button>`).join("");
+$("#templ").innerHTML=TEMPL.map((t,i)=>`<button type="button" data-i="${i}">${esc(t.label)}</button>`).join("");
+function paintForm(){
+ [...$("#f-procs").children].forEach(b=>b.setAttribute("aria-pressed",String(fProcs.has(b.dataset.v))));
+ [...$("#f-volts").children].forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===fVolts)));
+ const has=x=>fProcs.has(x),w=has("MIG")||has("FCAW");
+ $("#r-wire").hidden=!w;$("#r-syn").hidden=!w;$("#r-spool").hidden=!has("MIG");
+ $("#r-rods").hidden=!has("STICK");$("#r-rod120").hidden=fVolts==="240";$("#r-rod240").hidden=fVolts==="120";
+ $("#r-tig").hidden=!has("TIG");
+}
+$("#f-procs").onclick=e=>{const b=e.target.closest("button");if(!b)return;if(fProcs.has(b.dataset.v))fProcs.delete(b.dataset.v);else fProcs.add(b.dataset.v);paintForm()};
+$("#f-volts").onclick=e=>{const b=e.target.closest("button");if(!b)return;fVolts=b.dataset.v;paintForm()};
+function fillForm(m){
+ $("#f-name").value=m.name||"";fProcs=new Set(m.procs||[]);fVolts=m.volts||"both";
+ $("#f-amps").value=m.maxA||"";$("#f-wire").value=m.wire||"";$("#f-rod120").value=m.rod120||"";$("#f-rod240").value=m.rod240||"";
+ $("#f-tig").value=m.tig||"lift";$("#f-syn").checked=!!m.syn;$("#f-spool").checked=!!m.spool;$("#f-note").value=m.note||"";
+ formHint=m.spoolHint||"";$("#f-err").textContent="";paintForm();
+}
+function setEditing(on){
+ $("#mFormTitle").textContent=on?"Edit machine":"Add a machine";
+ $("#mSave").textContent=on?"Save changes":"Add machine";
+ $("#mCancel").hidden=!on;
+}
+$("#templ").onclick=e=>{
+ const b=e.target.closest("button");if(!b)return;
+ editId=null;setEditing(false);fillForm(TEMPL[+b.dataset.i].m);$("#f-msg").textContent="";$("#f-name").focus();
+};
+$("#mCancel").onclick=()=>{editId=null;setEditing(false);fillForm(BLANK)};
+function readForm(){
+ const name=$("#f-name").value.trim();
+ if(!name)return{err:"Enter a name so you can pick this machine on the Settings page."};
+ if(!fProcs.size)return{err:"Choose at least one process the machine runs."};
+ const has=x=>fProcs.has(x),w=has("MIG")||has("FCAW");
+ return{m:{id:editId||uid(),name,procs:PROCS.map(p=>p[0]).filter(x=>fProcs.has(x)),maxA:Math.max(0,Math.floor(+$("#f-amps").value)||0),volts:fVolts,
+  wire:w?$("#f-wire").value:"",rod120:has("STICK")&&fVolts!=="240"?$("#f-rod120").value:"",rod240:has("STICK")&&fVolts!=="120"?$("#f-rod240").value:"",
+  tig:has("TIG")?$("#f-tig").value:"",syn:w&&$("#f-syn").checked,spool:has("MIG")&&$("#f-spool").checked,spoolHint:formHint,note:$("#f-note").value.trim()}};
+}
+$("#mForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const r=readForm();if(r.err){$("#f-err").textContent=r.err;return}
+ const i=EQ.machines.findIndex(x=>x.id===r.m.id);
+ if(i>=0)EQ.machines[i]=r.m;else EQ.machines.push(r.m);
+ if(i<0&&EQ.machines.length===1)S.mach=r.m.id;
+ editId=null;setEditing(false);fillForm(BLANK);
+ saveEq();fillMach();renderEquip();out();
+ $("#f-msg").textContent="Saved "+r.m.name+". It now appears on the Settings page.";
+});
+function summary(m){
+ const volts=m.volts==="both"?"120 V or 240 V input":m.volts+" V input";
+ return "Runs: "+m.procs.map(p=>PROCS.find(x=>x[0]===p)[1].toLowerCase()).join(", ")+"\nOutput: "+(m.maxA?"up to "+m.maxA+" A, ":"")+volts;
+}
+function armed(btn,run){
+ if(btn._t){clearTimeout(btn._t);btn._t=0;run();return}
+ const o=btn.textContent;btn.textContent="Tap again to remove";
+ btn._t=setTimeout(()=>{btn._t=0;btn.textContent=o},3500);
+}
+function renderEquip(){
+ $("#mList").innerHTML=EQ.machines.length?EQ.machines.map(m=>{
+  const s=summary(m).split("\n");
+  return `<li data-id="${esc(m.id)}"><strong>${esc(m.name)}</strong>${S.mach===m.id?'<span class="inuse">In use</span>':""}<span class="meta">${esc(s[0])}</span><span class="meta">${esc(s[1])}</span>${m.note?`<span class="meta">${esc(m.note)}</span>`:""}<div class="acts"><button type="button" class="btn" data-act="use">Use for settings</button><button type="button" class="btn" data-act="edit">Edit</button><button type="button" class="btn danger" data-act="del">Remove</button></div></li>`;
+ }).join(""):'<li class="empty">No machines yet. Pick a template below, fill in your machine’s details and tap Add machine.</li>';
+ $("#gList").innerHTML=EQ.gear.length?EQ.gear.map(g=>`<li data-id="${esc(g.id)}"><div class="row"><div><strong>${esc(g.name)}</strong><span class="meta">${esc(g.kind)}</span></div><button type="button" class="btn danger" data-act="del">Remove</button></div></li>`).join(""):'<li class="empty">No other gear yet. Torches, regulators, helmets and grinders go here.</li>';
+}
+$("#mList").addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b)return;
+ const li=b.closest("li"),id=li&&li.dataset.id,m=EQ.machines.find(x=>x.id===id);if(!m)return;
+ if(b.dataset.act==="edit"){editId=id;fillForm(m);setEditing(true);$("#f-msg").textContent="";$("#mFormCard").scrollIntoView({block:"start"});$("#f-name").focus()}
+ else if(b.dataset.act==="use"){S.mach=id;saveEq();fillMach();renderEquip();out();location.hash="#welds"}
+ else if(b.dataset.act==="del")armed(b,()=>{
+  EQ.machines=EQ.machines.filter(x=>x.id!==id);if(S.mach===id)S.mach="gen";
+  if(editId===id){editId=null;setEditing(false);fillForm(BLANK)}
+  saveEq();fillMach();renderEquip();out();
+ });
+});
+$("#gForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const name=$("#g-name").value.trim();
+ if(!name){$("#g-err").textContent="Enter a name for the gear.";return}
+ $("#g-err").textContent="";
+ EQ.gear.push({id:uid(),kind:$("#g-kind").value,name});
+ $("#g-name").value="";saveEq();renderEquip();
+});
+$("#gList").addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b)return;
+ const id=b.closest("li").dataset.id;
+ armed(b,()=>{EQ.gear=EQ.gear.filter(x=>x.id!==id);saveEq();renderEquip()});
+});
+
+/* ---------- consumables page ---------- */
+const QUICK=[
+ {name:"MIG wire ER70S-6 .035",unit:"spools",min:1,q:"ER70S-6 .035 MIG welding wire 11 lb spool"},
+ {name:"Flux-core wire E71T-11 .035",unit:"spools",min:1,q:"E71T-11 .035 flux core welding wire 2 lb spool"},
+ {name:"Contact tips .035",unit:"pcs",min:5,q:"MIG contact tips .035"},
+ {name:"MIG nozzles",unit:"pcs",min:2,q:"MIG welding gun nozzles"},
+ {name:"E7018 rods 1/8",unit:"lb",min:2,q:"E7018 1/8 welding rods 10 lb"},
+ {name:"E6011 rods 1/8",unit:"lb",min:2,q:"E6011 1/8 welding rods 10 lb"},
+ {name:"TIG filler ER70S-2 1/16",unit:"lb",min:1,q:"ER70S-2 TIG filler rod 1/16 36 inch 1 lb"},
+ {name:"Tungsten 2% lanthanated 3/32",unit:"pcs",min:2,q:"2% lanthanated tungsten electrode 3/32"},
+ {name:"Flap discs 4-1/2 in",unit:"pcs",min:5,q:"4-1/2 inch flap disc 60 grit"},
+ {name:"Anti-spatter spray",unit:"cans",min:1,q:"welding anti spatter spray"}
+];
+const mk=(t,qty,ex)=>{const o={id:uid(),name:t.name,qty,unit:t.unit,min:t.min,q:t.q};if(ex)o.ex=1;return o};
+const examples=()=>[mk(QUICK[0],2,1),mk(QUICK[2],3,1),mk(QUICK[4],0,1),mk(QUICK[7],4,1),mk(QUICK[8],8,1)];
+const ensureInv=()=>INV.items||(INV.items=examples());
+const findItem=id=>ensureInv().find(i=>i.id===id);
+const status=i=>i.qty<=0?"out":(i.min>0&&i.qty<=i.min)?"low":"ok";
+const PILL={ok:"In stock",low:"Low",out:"Out"},RANK={out:0,low:1,ok:2};
+const cmp=(a,b)=>RANK[status(a)]-RANK[status(b)]||a.name.localeCompare(b.name);
+let invFilter="all";
+function rowHtml(i){
+ const s=status(i),id=esc(i.id);
+ return `<li data-id="${id}">
+<div class="row"><div class="nm"><strong>${esc(i.name)}</strong><span class="tag"${i.ex?"":" hidden"}>Example</span></div><span class="pill s-${s}">${PILL[s]}</span></div>
+<div class="row sp"><div class="qty" role="group" aria-label="Quantity of ${esc(i.name)}"><button type="button" class="step" data-act="dec" aria-label="Use one">−</button><output>${i.qty}</output><button type="button" class="step" data-act="inc" aria-label="Add one">+</button><span class="unit">${esc(i.unit)}</span></div>${buyLink(i.q||i.name,"Shop on Amazon","Shop "+i.name+" on Amazon")}</div>
+<details><summary>Edit</summary><div class="edit">
+<div class="field"><label for="n-${id}">Name</label><input id="n-${id}" type="text" data-f="name" value="${esc(i.name)}"></div>
+<div class="three"><div class="field"><label for="c-${id}">Count</label><input id="c-${id}" type="number" inputmode="numeric" min="0" data-f="qty" value="${i.qty}"></div>
+<div class="field"><label for="u-${id}">Unit</label><input id="u-${id}" type="text" data-f="unit" value="${esc(i.unit)}"></div>
+<div class="field"><label for="m-${id}">Reorder at</label><input id="m-${id}" type="number" inputmode="numeric" min="0" data-f="min" value="${i.min}"></div></div>
+<div class="field"><label for="q-${id}">Amazon search words</label><input id="q-${id}" type="text" data-f="q" value="${esc(i.q||"")}"></div>
+<button type="button" class="btn danger" data-act="del">Remove item</button>
+</div></details></li>`;
+}
+function updateCounts(){
+ const all=ensureInv(),need=all.filter(i=>status(i)!=="ok").length;
+ $("#fAll").textContent="All ("+all.length+")";$("#fNeed").textContent="Needs reorder ("+need+")";
+ $("#invSum").textContent=!all.length?"":need?need+" of "+all.length+" items are at or below the reorder level.":"Everything is stocked.";
+ $("#exNote").hidden=!all.some(i=>i.ex);
+}
+function renderQuick(){
+ const have=new Set(ensureInv().map(i=>i.name.toLowerCase())),left=QUICK.filter(q=>!have.has(q.name.toLowerCase()));
+ $("#quickBox").hidden=!left.length;
+ $("#quick").innerHTML=left.map(q=>`<button type="button" data-n="${esc(q.name)}">${esc(q.name)}</button>`).join("");
+}
+function renderInv(){
+ const all=ensureInv(),need=all.filter(i=>status(i)!=="ok");
+ const list=(invFilter==="need"?need:all).slice().sort(cmp);
+ $("#invList").innerHTML=list.length?list.map(rowHtml).join(""):`<li class="empty">${invFilter==="need"?"Nothing to reorder right now.":"No items yet. Add one below or tap a common item."}</li>`;
+ $("#fAll").setAttribute("aria-pressed",String(invFilter==="all"));$("#fNeed").setAttribute("aria-pressed",String(invFilter==="need"));
+ updateCounts();renderQuick();
+}
+function refreshRow(li){
+ const it=findItem(li.dataset.id),s=status(it);
+ li.querySelector(".nm strong").textContent=it.name;li.querySelector(".tag").hidden=!it.ex;
+ const p=li.querySelector(".pill");p.className="pill s-"+s;p.textContent=PILL[s];
+ li.querySelector("output").textContent=it.qty;li.querySelector(".unit").textContent=it.unit;
+ li.querySelector(".qty").setAttribute("aria-label","Quantity of "+it.name);
+ const a=li.querySelector("a.buy");a.href=amz(it.q||it.name);a.setAttribute("aria-label","Shop "+it.name+" on Amazon");
+ const qi=li.querySelector('[data-f="qty"]');if(qi&&document.activeElement!==qi)qi.value=it.qty;
+}
+$("#invFilter").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;invFilter=b.dataset.v;renderInv()});
+$("#invList").addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b)return;
+ const li=b.closest("li"),it=li&&findItem(li.dataset.id);if(!it)return;
+ const act=b.dataset.act;
+ if(act==="inc"||act==="dec"){it.qty=Math.max(0,it.qty+(act==="inc"?1:-1));delete it.ex;saveInv();refreshRow(li);updateCounts()}
+ else if(act==="del")armed(b,()=>{INV.items=INV.items.filter(x=>x!==it);saveInv();renderInv()});
+});
+$("#invList").addEventListener("change",e=>{
+ const inp=e.target.closest("[data-f]");if(!inp)return;
+ const li=inp.closest("li"),it=findItem(li.dataset.id);if(!it)return;
+ const f=inp.dataset.f;
+ if(f==="name"){const v=inp.value.trim();if(!v){inp.value=it.name;return}it.name=v}
+ else if(f==="unit")it.unit=inp.value.trim()||"pcs";
+ else if(f==="qty"||f==="min"){const n=Math.max(0,Math.floor(+inp.value)||0);it[f]=n;inp.value=n}
+ else if(f==="q")it.q=inp.value.trim();
+ delete it.ex;saveInv();refreshRow(li);updateCounts();
+});
+$("#exClear").onclick=()=>{INV.items=ensureInv().filter(i=>!i.ex);saveInv();renderInv()};
+$("#quick").addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b)return;
+ const q=QUICK.find(x=>x.name===b.dataset.n);if(!q)return;
+ ensureInv().push(mk(q,1));saveInv();renderInv();$("#invMsg").textContent="Added "+q.name+".";
+});
+$("#addForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ const name=$("#a-name").value.trim();
+ if(!name){$("#a-err").textContent="Enter an item name.";return}
+ $("#a-err").textContent="";
+ const num=id=>Math.max(0,Math.floor(+$(id).value)||0);
+ ensureInv().push({id:uid(),name,qty:num("#a-qty"),unit:$("#a-unit").value.trim()||"pcs",min:num("#a-min"),q:name});
+ saveInv();renderInv();$("#addForm").reset();$("#invMsg").textContent="Added "+name+".";
+});
+if(DISC){$("#disc").textContent=DISC;$("#disc").hidden=false}
+
+/* ---------- pages on the URL hash ---------- */
+const VIEWS=["welds","gear","supplies"];let routed=false;
+function route(){
+ const h=location.hash.slice(1),v=VIEWS.indexOf(h)>=0?h:"welds";
+ VIEWS.forEach(x=>{$("#v-"+x).hidden=x!==v});
+ document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.getAttribute("href")==="#"+v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+ if(routed)window.scrollTo(0,0);routed=true;
+}
+addEventListener("hashchange",route);
+
+/* ---------- start ---------- */
+(function(){
+ const e=lsGet("wk-equipment");if(e)EQ=normEq(e);
+ const i=lsGet("wk-inventory");if(i&&Array.isArray(i.items))INV.items=i.items;
+ pickMach();
+ chips("proc",PROCS,"proc");
+ sel("mat",Object.entries(MAT).map(([k,v])=>[k,v.n]),"mat");
+ sel("thick",TH,"thick");
+ chips("joint",[["butt","Butt"],["lap","Lap"],["tee","T-joint"],["corner","Corner"]],"joint");
+ chips("pos",[["flat","Flat"],["horiz","Horizontal"],["vert","Vertical"],["over","Overhead"]],"pos");
+ chips("volt",[["120","120 V"],["240","240 V"]],"volt");
+ fillMach();fillForm(BLANK);renderEquip();renderInv();route();out();
+})();
+(async function(){
+ try{
+  if(!(window.claude&&claude.use))return;
+  const r=await Promise.all([claude.use("db"),claude.use("user")]);
+  const id=r[1]?await r[1].id():null;
+  if(!r[0]||!id)return;
+  store.db=r[0];store.uid=id;
+  const d=await Promise.all([readDoc("equipment"),readDoc("inventory")]);
+  let changed=false;
+  if(d[0]&&!dirty.equipment){EQ=normEq(d[0]);pickMach();changed=true}
+  if(d[1]&&Array.isArray(d[1].items)&&!dirty.inventory){INV.items=d[1].items;changed=true}
+  if(changed){fillMach();renderEquip();renderInv();out()}
+  note("Saved to your account. It follows you to other devices.");
+ }catch(err){}
+})();
+</script>
+
+</body></html>
